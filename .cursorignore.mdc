@@ -1,0 +1,42 @@
+# Node.js Build Output & Tooling
+**/node_modules/
+**/.next/
+**/.turbo/
+**/.vite/
+**/dist/
+**/build/
+**/out/
+
+# Backend Python Virtual Env & Cache
+**/ai-service/.venv/
+**/ai-service/__pycache__/
+**/ai-service/*.log
+**/__pycache__/
+**/*.pyc
+
+# Generated Assets & Heavy Files
+**/public/assets/
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.svg  # chỉ giữ nếu cần thiết cho UI
+
+# Environment Variables & Secrets
+**/.env*
+**/*.env
+
+# Frontend Specific
+**/frontend/.next/
+**/frontend/.backup/
+**/frontend/*.log
+
+# Logs & Test/Coverage Output
+**/*.log
+coverage/
+**/test-results/
+**/playwright-report/
+
+# Monorepo Helper
+# Chỉ index phần bạn đang làm, comment/uncomment theo nhu cầu
+# backend/ # Uncomment nếu muốn tạm ignore toàn bộ backend

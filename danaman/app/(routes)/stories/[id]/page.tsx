@@ -60,7 +60,7 @@ export default async function StoryDetailPage({ params }: PageProps) {
   const tags = story.tags?.join(" • ") ?? "Storytelling • Community";
 
   return (
-    <div className="space-y-10 px-6 py-8 sm:px-10 lg:px-16">
+    <div className="flex flex-col gap-[10px] px-6 py-8 sm:px-10 lg:px-16">
       <section className="grid gap-8 lg:grid-cols-10">
         <div className="lg:col-span-7">
           <ImageGallery images={gallery} title={story.title} />

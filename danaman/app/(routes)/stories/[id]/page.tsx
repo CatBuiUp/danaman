@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { ActionButtons, AuthorCard, ImageGallery, StoryContent } from "@/components/story-detail";
@@ -13,8 +14,26 @@ type StoryApiResponse = {
   data?: Story;
 };
 
+/** Base URL for server-side fetch to this app's API (NEXTAUTH_URL is often unset on Vercel). */
+async function resolvePublicBaseUrl(): Promise<string> {
+  const h = await headers();
+  const host = h.get("x-forwarded-host") ?? h.get("host");
+  if (host) {
+    const proto =
+      h.get("x-forwarded-proto") ?? (host.startsWith("localhost") || host.startsWith("127.") ? "http" : "https");
+    return `${proto}://${host}`;
+  }
+  if (process.env.NEXTAUTH_URL) {
+    return process.env.NEXTAUTH_URL.replace(/\/$/, "");
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL.replace(/\/$/, "")}`;
+  }
+  return "http://localhost:3000";
+}
+
 async function getStoryDetail(id: string): Promise<Story | null> {
-  const baseUrl = process.env.NEXTAUTH_URL ?? "http://localhost:3000";
+  const baseUrl = await resolvePublicBaseUrl();
   const response = await fetch(`${baseUrl}/api/stories/${id}`, {
     method: "GET",
     cache: "no-store",
@@ -75,13 +94,10 @@ export default async function StoryDetailPage({ params }: PageProps) {
         </aside>
       </section>
 
-      <section>
+      <div className="flex flex-col gap-[3px]">
         <StoryContent paragraphs={paragraphs} quote={story.quote} />
-      </section>
-
-      <section>
         <ActionButtons storyId={story.id} />
-      </section>
+      </div>
     </div>
   );
 }

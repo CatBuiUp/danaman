@@ -96,7 +96,7 @@ export default async function StoryDetailPage({ params }: PageProps) {
 
       <div className="flex flex-col gap-[3px]">
         <StoryContent paragraphs={paragraphs} quote={story.quote} />
-        <ActionButtons storyId={story.id} />
+        <ActionButtons />
       </div>
     </div>
   );

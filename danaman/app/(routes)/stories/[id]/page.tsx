@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 
-import { ActionButtons, AuthorCard, ImageGallery, StoryContent } from "@/components/story-detail";
+import { ActionButtons, ImageGallery, StoryContent } from "@/components/story-detail";
 import type { Story } from "@/types";
 
 type PageProps = {
@@ -57,47 +57,24 @@ export default async function StoryDetailPage({ params }: PageProps) {
 
   const gallery = story.gallery?.length ? story.gallery : [story.image];
   const paragraphs = story.content?.length ? story.content : [story.description];
-  const tags = story.tags?.join(" • ") ?? "Storytelling • Community";
 
   return (
     <div className="flex flex-col gap-[10px] px-6 py-8 sm:px-10 lg:px-16">
       <section className="grid gap-8 lg:grid-cols-10">
-        <div className="lg:col-span-7">
+        <div className="space-y-6 lg:col-span-7">
           <ImageGallery images={gallery} title={story.title} />
+          <StoryContent paragraphs={paragraphs} quote={story.quote} />
         </div>
 
-        <aside className="space-y-5 lg:col-span-3">
-          <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-            {story.category}
-          </span>
-          <h1 className="text-3xl font-bold leading-tight text-zinc-900">{story.title}</h1>
-          <AuthorCard
-            author={story.author}
-            avatar={story.authorAvatar ?? story.image}
-            date={story.publishedAt ?? "N/A"}
+        <aside className="lg:col-span-3">
+          <ActionButtons
+            location={story.location}
+            duration="2 - 3 tiếng"
+            timeRange="11:00 - 20:00"
+            group="2 - 3 người"
           />
-
-          <p className="line-clamp-4 text-sm leading-6 text-zinc-600">{story.description}</p>
-
-          <div className="space-y-2 rounded-xl border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-600">
-            <p>
-              <span className="font-semibold text-zinc-900">Dia diem:</span> {story.location}
-            </p>
-            <p>
-              <span className="font-semibold text-zinc-900">Tags:</span> {tags}
-            </p>
-            <p>
-              <span className="font-semibold text-zinc-900">Nhom ket noi:</span>{" "}
-              {story.connectionGroup ?? "Danaman Community"}
-            </p>
-          </div>
         </aside>
       </section>
-
-      <div className="flex flex-col gap-[3px]">
-        <StoryContent paragraphs={paragraphs} quote={story.quote} />
-        <ActionButtons />
-      </div>
     </div>
   );
 }

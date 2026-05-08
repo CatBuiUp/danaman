@@ -23,7 +23,7 @@ export function HeroSection() {
               Kết nối con người, câu chuyện và cơ hội tại Đà Nẵng
             </h1>
             <p className="text-sm text-zinc-100 sm:text-base">
-              Trải nghiệm - Kết nối - Chia sẻ - Phát triển
+              Câu chuyện thật - Trải nghiệm thật - Kết nối thật
             </p>
 
             <div className="flex flex-wrap gap-3">

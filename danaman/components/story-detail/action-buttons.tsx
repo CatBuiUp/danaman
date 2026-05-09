@@ -55,7 +55,7 @@ export function ActionButtons({ location, experience }: ActionButtonsProps) {
   }, [departureSelectedIndex, timeSlotSelectedIndex]);
 
   return (
-    <div className="w-full min-w-0 max-w-full space-y-5 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm lg:sticky lg:top-1">
+    <div className="w-full min-w-0 max-w-full space-y-2 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm lg:sticky lg:top-0">
       <h2 className="text-2xl font-bold text-zinc-900">Thông tin trải nghiệm</h2>
 
       <div className="min-w-0 space-y-3 break-words text-sm text-zinc-700">
@@ -128,8 +128,8 @@ export function ActionButtons({ location, experience }: ActionButtonsProps) {
         </div>
       </div>
 
-      <div className="flex min-w-0 flex-col gap-3 border-t border-zinc-100 pt-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-        <p className="min-w-0 shrink sm:pr-2">
+      <div className="flex min-w-0 items-center justify-between gap-3 border-t border-zinc-100 pt-4">
+        <p className="min-w-0 shrink pr-2">
           <span className="text-lg font-bold text-orange-600">{formatPriceVnd(pricePerPerson)}</span>
           <span className="text-sm font-normal text-zinc-600"> / người</span>
         </p>
@@ -137,7 +137,7 @@ export function ActionButtons({ location, experience }: ActionButtonsProps) {
           href={storyDetailConnectUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex w-full shrink-0 items-center justify-center rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-400 sm:w-auto"
+          className="inline-flex shrink-0 whitespace-nowrap rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-400"
         >
           Đăng ký ngay
         </a>

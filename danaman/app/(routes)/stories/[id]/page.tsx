@@ -73,14 +73,14 @@ export default async function StoryDetailPage({ params }: PageProps) {
   const experience = mapStoryToFeaturedExperience(story, featuredIndex);
 
   return (
-    <div className="flex flex-col gap-[10px] px-6 py-8 sm:px-10 lg:px-16">
-      <section className="grid gap-8 lg:grid-cols-10">
-        <div className="space-y-6 lg:col-span-7">
+    <div className="flex min-w-0 max-w-full flex-col gap-[10px] overflow-x-hidden px-6 py-8 sm:px-10 lg:px-16">
+      <section className="grid min-w-0 max-w-full gap-8 lg:grid-cols-10">
+        <div className="min-w-0 space-y-6 lg:col-span-7">
           <ImageGallery images={gallery} title={story.title} />
           <StoryContent paragraphs={paragraphs} quote={story.quote} />
         </div>
 
-        <aside className="lg:col-span-3">
+        <aside className="min-w-0 w-full lg:col-span-3">
           <ActionButtons location={story.location} experience={experience} />
         </aside>
       </section>

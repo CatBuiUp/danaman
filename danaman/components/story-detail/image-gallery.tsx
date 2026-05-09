@@ -13,8 +13,8 @@ export function ImageGallery({ images, title }: ImageGalleryProps) {
   const [activeImage, setActiveImage] = useState(validImages[0] ?? "");
 
   return (
-    <div className="space-y-4">
-      <div className="relative h-[380px] overflow-hidden rounded-2xl bg-zinc-100 md:h-[460px]">
+    <div className="min-w-0 max-w-full space-y-4">
+      <div className="relative h-[380px] max-w-full overflow-hidden rounded-2xl bg-zinc-100 md:h-[460px]">
         {activeImage ? (
           <Image
             key={activeImage}

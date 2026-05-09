@@ -30,10 +30,10 @@ export function ActionButtons({ location, experience }: ActionButtonsProps) {
   } = experience;
 
   return (
-    <div className="space-y-5 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm lg:sticky lg:top-6">
+    <div className="w-full min-w-0 max-w-full space-y-5 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm lg:sticky lg:top-6">
       <h2 className="text-2xl font-bold text-zinc-900">Thông tin trải nghiệm</h2>
 
-      <div className="space-y-3 text-sm text-zinc-700">
+      <div className="min-w-0 space-y-3 break-words text-sm text-zinc-700">
         <p>
           <span className="font-semibold text-zinc-900">Đánh giá:</span>{" "}
           <span className="text-amber-600">★</span> {rating.toFixed(1)} ({reviewCount})
@@ -82,7 +82,7 @@ export function ActionButtons({ location, experience }: ActionButtonsProps) {
 
       <div className="space-y-3 border-t border-zinc-100 pt-4">
         <h3 className="text-lg font-semibold text-zinc-900">Chọn giờ</h3>
-        <div className="flex gap-2">
+        <div className="flex min-w-0 flex-wrap gap-2">
           {timeSlots.map((slot, index) => (
             <button
               key={slot}
@@ -99,8 +99,8 @@ export function ActionButtons({ location, experience }: ActionButtonsProps) {
         </div>
       </div>
 
-      <div className="flex flex-row items-center justify-between gap-4 border-t border-zinc-100 pt-4">
-        <p className="min-w-0">
+      <div className="flex min-w-0 flex-col gap-3 border-t border-zinc-100 pt-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+        <p className="min-w-0 shrink sm:pr-2">
           <span className="text-lg font-bold text-orange-600">{formatPriceVnd(pricePerPerson)}</span>
           <span className="text-sm font-normal text-zinc-600"> / người</span>
         </p>
@@ -108,7 +108,7 @@ export function ActionButtons({ location, experience }: ActionButtonsProps) {
           href={storyDetailConnectUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex shrink-0 items-center justify-center rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-400"
+          className="inline-flex w-full shrink-0 items-center justify-center rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-400 sm:w-auto"
         >
           Đăng ký ngay
         </a>

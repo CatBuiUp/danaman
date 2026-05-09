@@ -57,7 +57,7 @@ const footerSocialItems = [
 
 export function SiteFooter() {
   return (
-    <footer className="mt-[10px] border-t border-black/10 bg-white px-1 py-0 text-zinc-700 dark:border-white/10 dark:bg-zinc-950 dark:text-zinc-200 sm:px-10 lg:px-16">
+    <footer className="mt-[10px] w-full min-w-0 shrink-0 border-t border-black/10 bg-white px-1 py-0 text-zinc-700 dark:border-white/10 dark:bg-zinc-950 dark:text-zinc-200 sm:px-10 lg:px-16">
       <div className="w-full space-y-4">
         <div className="grid gap-4 rounded-2xl bg-[#0D2B45] p-4 text-white md:grid-cols-2 md:p-5">
           <div className="flex items-center gap-4">

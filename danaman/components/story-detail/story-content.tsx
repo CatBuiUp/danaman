@@ -5,7 +5,7 @@ type StoryContentProps = {
 
 export function StoryContent({ paragraphs, quote }: StoryContentProps) {
   return (
-    <article className="space-y-5 rounded-2xl bg-white p-3 shadow-sm">
+    <article className="min-w-0 max-w-full space-y-5 rounded-2xl bg-white p-3 shadow-sm">
       <h2 className="text-2xl font-bold text-zinc-900">Trải nghiệm có gì đặc biệt?</h2>
 
       <div className="space-y-4">

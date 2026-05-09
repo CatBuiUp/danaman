@@ -4,7 +4,7 @@ import logo from "@/app/icon.png";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-black/10 bg-white/90 px-6 py-1 backdrop-blur dark:border-white/10 dark:bg-zinc-950/80">
+    <header className="sticky top-0 z-40 w-full min-w-0 shrink-0 border-b border-black/10 bg-white/90 px-6 py-1 backdrop-blur dark:border-white/10 dark:bg-zinc-950/80">
       <div className="flex w-full items-center justify-between">
         <Link href="/" className="inline-flex items-center p-[5px]">
           <Image

@@ -2,6 +2,11 @@ import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { ActionButtons, ImageGallery, StoryContent } from "@/components/story-detail";
+import { listResources } from "@/lib/server/controllers/resource-controller";
+import {
+  mapStoryToFeaturedExperience,
+  resolveFeaturedListIndex,
+} from "@/lib/story-experience-ui";
 import type { Story } from "@/types";
 
 type PageProps = {
@@ -58,6 +63,15 @@ export default async function StoryDetailPage({ params }: PageProps) {
   const gallery = story.gallery?.length ? story.gallery : [story.image];
   const paragraphs = story.content?.length ? story.content : [story.description];
 
+  let listStories: { id: string }[] = [];
+  try {
+    listStories = (await listResources("stories")) as Story[];
+  } catch {
+    listStories = [];
+  }
+  const featuredIndex = resolveFeaturedListIndex(id, listStories);
+  const experience = mapStoryToFeaturedExperience(story, featuredIndex);
+
   return (
     <div className="flex flex-col gap-[10px] px-6 py-8 sm:px-10 lg:px-16">
       <section className="grid gap-8 lg:grid-cols-10">
@@ -67,12 +81,7 @@ export default async function StoryDetailPage({ params }: PageProps) {
         </div>
 
         <aside className="lg:col-span-3">
-          <ActionButtons
-            location={story.location}
-            duration="2 - 3 tiếng"
-            timeRange="11:00 - 20:00"
-            group="2 - 3 người"
-          />
+          <ActionButtons location={story.location} experience={experience} />
         </aside>
       </section>
     </div>

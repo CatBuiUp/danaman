@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { FeaturedCommunityCtaCard } from "@/components/cards";
 import { SectionHeading } from "@/components/ui";
 import { useStories } from "@/lib/hooks/use-stories";
+import { STORY_DETAILS_MOCK } from "@/lib/stories-detail-mock-data";
+import { mapStoryToFeaturedExperience, type GroupSize } from "@/lib/story-experience-ui";
 import type { Story } from "@/types";
-
-type GroupSize = "Nhóm nhỏ" | "Nhóm vừa" | "Nhóm lớn";
 
 type FeaturedStoryCardData = {
   id: string;
@@ -20,123 +21,23 @@ type FeaturedStoryCardData = {
   reviewCount: number;
 };
 
-const MOCK_STORIES: FeaturedStoryCardData[] = [
-  {
-    id: "mock-story-1",
-    image:
-      "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=1200&q=80",
-    category: "Ngư dân",
-    title: "Ra khơi cùng ngư dân",
-    duration: "4 - 6 tiếng",
-    groupSize: "Nhóm nhỏ",
-    pricePerPerson: 530000,
-    rating: 4.9,
-    reviewCount: 152,
-  },
-  {
-    id: "mock-story-2",
-    image:
-      "https://images.unsplash.com/photo-1498579150354-977475b7ea0b?auto=format&fit=crop&w=1200&q=80",
-    category: "Làng chài",
-    title: "Khám phá nhịp sống miền biển",
-    duration: "3 - 5 tiếng",
-    groupSize: "Nhóm vừa",
-    pricePerPerson: 450000,
-    rating: 4.8,
-    reviewCount: 98,
-  },
-  {
-    id: "mock-story-3",
-    image:
-      "https://images.unsplash.com/photo-1518391846015-55a9cc003b25?auto=format&fit=crop&w=1200&q=80",
-    category: "Ẩm thực",
-    title: "Bữa cơm cùng người địa phương",
-    duration: "2 - 3 tiếng",
-    groupSize: "Nhóm nhỏ",
-    pricePerPerson: 390000,
-    rating: 4.7,
-    reviewCount: 76,
-  },
-  {
-    id: "mock-story-4",
-    image:
-      "https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1200&q=80",
-    category: "Thiên nhiên",
-    title: "Du ngoạn bình minh trên vịnh",
-    duration: "5 - 7 tiếng",
-    groupSize: "Nhóm lớn",
-    pricePerPerson: 610000,
-    rating: 4.9,
-    reviewCount: 214,
-  },
-  {
-    id: "mock-story-5",
-    image:
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80",
-    category: "Khám phá",
-    title: "Đi thuyền ngắm hoàng hôn",
-    duration: "2 - 4 tiếng",
-    groupSize: "Nhóm vừa",
-    pricePerPerson: 420000,
-    rating: 4.6,
-    reviewCount: 63,
-  },
-  {
-    id: "mock-story-6",
-    image:
-      "https://images.unsplash.com/photo-1515238152791-8216bfdf89a7?auto=format&fit=crop&w=1200&q=80",
-    category: "Ngư dân",
-    title: "Một ngày làm ngư phủ",
-    duration: "6 - 8 tiếng",
-    groupSize: "Nhóm nhỏ",
-    pricePerPerson: 680000,
-    rating: 4.8,
-    reviewCount: 121,
-  },
-  {
-    id: "mock-story-7",
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
-    category: "Biển đảo",
-    title: "Tour trải nghiệm ven biển",
-    duration: "3 - 6 tiếng",
-    groupSize: "Nhóm lớn",
-    pricePerPerson: 500000,
-    rating: 4.7,
-    reviewCount: 87,
-  },
-  {
-    id: "mock-story-8",
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80",
-    category: "Địa phương",
-    title: "Gặp gỡ người giữ hồn làng chài",
-    duration: "4 - 5 tiếng",
-    groupSize: "Nhóm vừa",
-    pricePerPerson: 470000,
-    rating: 4.9,
-    reviewCount: 143,
-  },
-];
-
 function formatPriceVnd(value: number) {
   return `${value.toLocaleString("vi-VN")}đ`;
 }
 
 function mapStoryToCardData(story: Story, index: number): FeaturedStoryCardData {
-  const groupSizes: GroupSize[] = ["Nhóm nhỏ", "Nhóm vừa", "Nhóm lớn"];
-  const duration = story.readTime.replace("phút đọc", "tiếng");
+  const xp = mapStoryToFeaturedExperience(story, index);
 
   return {
     id: story.id,
     image: story.image,
     category: story.category || "Trải nghiệm",
     title: story.title,
-    duration: duration || "3 - 4 tiếng",
-    groupSize: groupSizes[index % groupSizes.length],
-    pricePerPerson: 350000 + index * 35000,
-    rating: 4.6 + (index % 4) * 0.1,
-    reviewCount: 60 + index * 12,
+    duration: xp.durationLabel,
+    groupSize: xp.groupSize,
+    pricePerPerson: xp.pricePerPerson,
+    rating: xp.rating,
+    reviewCount: xp.reviewCount,
   };
 }
 
@@ -156,7 +57,7 @@ function FeaturedStoryCard({ story }: { story: FeaturedStoryCardData }) {
         alt={story.title}
         fill
         className="object-cover transition duration-500 group-hover:scale-105"
-        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
+        sizes="(max-width: 768px) 100vw, (max-width: 1023px) 50vw, 25vw"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#071a2f]/95 via-[#071a2f]/65 to-[#071a2f]/20" />
 
@@ -207,7 +108,9 @@ function FeaturedStoryCard({ story }: { story: FeaturedStoryCardData }) {
 export function FeaturedStoriesClientSection() {
   const { stories, isLoading, error, reload } = useStories();
   const storiesToRender: FeaturedStoryCardData[] =
-    stories.length > 0 ? stories.slice(0, 8).map(mapStoryToCardData) : MOCK_STORIES;
+    stories.length > 0
+      ? stories.slice(0, 7).map(mapStoryToCardData)
+      : STORY_DETAILS_MOCK.slice(0, 7).map(mapStoryToCardData);
 
   return (
     <section id="stories" className="space-y-6">
@@ -233,10 +136,15 @@ export function FeaturedStoriesClientSection() {
         </div>
       ) : null}
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {isLoading
           ? Array.from({ length: 3 }).map((_, index) => <StoryCardSkeleton key={index} />)
-          : storiesToRender.slice(0, 8).map((story) => <FeaturedStoryCard key={story.id} story={story} />)}
+          : [
+              ...storiesToRender.map((story) => (
+                <FeaturedStoryCard key={story.id} story={story} />
+              )),
+              <FeaturedCommunityCtaCard key="featured-community-cta" />,
+            ]}
       </div>
     </section>
   );

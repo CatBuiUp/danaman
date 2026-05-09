@@ -1,21 +1,33 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 import { storyDetailConnectUrl } from "@/lib/footer-social-links";
+import type { StoryExperienceUi } from "@/lib/story-experience-ui";
 
 type ActionButtonsProps = {
   location: string;
-  duration: string;
-  timeRange: string;
-  group: string;
+  experience: StoryExperienceUi;
 };
 
-const departureDates = ["T2 20/05", "T3 21/05", "T4 22/05", "T5 23/05", "T6 24/05", "T7 25/05", "CN 26/05"];
-const timeSlots = ["17:30", "18:00", "18:30"];
+function formatPriceVnd(value: number) {
+  return `${value.toLocaleString("vi-VN")}đ`;
+}
 
-export function ActionButtons({ location, duration, timeRange, group }: ActionButtonsProps) {
-  const router = useRouter();
+export function ActionButtons({ location, experience }: ActionButtonsProps) {
+  const {
+    durationLabel,
+    groupSize,
+    pricePerPerson,
+    rating,
+    reviewCount,
+    timeRange,
+    departureDates,
+    departureSelectedIndex,
+    timeSlots,
+    timeSlotSelectedIndex,
+    includes,
+    excludes,
+    languages,
+  } = experience;
 
   return (
     <div className="space-y-5 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm lg:sticky lg:top-6">
@@ -23,7 +35,11 @@ export function ActionButtons({ location, duration, timeRange, group }: ActionBu
 
       <div className="space-y-3 text-sm text-zinc-700">
         <p>
-          <span className="font-semibold text-zinc-900">Thời lượng:</span> {duration}
+          <span className="font-semibold text-zinc-900">Đánh giá:</span>{" "}
+          <span className="text-amber-600">★</span> {rating.toFixed(1)} ({reviewCount})
+        </p>
+        <p>
+          <span className="font-semibold text-zinc-900">Thời lượng:</span> {durationLabel}
         </p>
         <p>
           <span className="font-semibold text-zinc-900">Thời gian:</span> {timeRange}
@@ -32,17 +48,16 @@ export function ActionButtons({ location, duration, timeRange, group }: ActionBu
           <span className="font-semibold text-zinc-900">Địa điểm:</span> {location}
         </p>
         <p>
-          <span className="font-semibold text-zinc-900">Nhóm:</span> {group}
+          <span className="font-semibold text-zinc-900">Nhóm:</span> {groupSize}
         </p>
         <p>
-          <span className="font-semibold text-zinc-900">Bao gồm:</span> Ăn tối, nước uống, câu chuyện, hướng dẫn viên
-          bản địa.
+          <span className="font-semibold text-zinc-900">Bao gồm:</span> {includes}
         </p>
         <p>
-          <span className="font-semibold text-zinc-900">Không bao gồm:</span> Chi phí cá nhân khác.
+          <span className="font-semibold text-zinc-900">Không bao gồm:</span> {excludes}
         </p>
         <p>
-          <span className="font-semibold text-zinc-900">Ngôn ngữ:</span> Tiếng Việt, English.
+          <span className="font-semibold text-zinc-900">Ngôn ngữ:</span> {languages}
         </p>
       </div>
 
@@ -54,7 +69,7 @@ export function ActionButtons({ location, duration, timeRange, group }: ActionBu
               key={date}
               type="button"
               className={`shrink-0 rounded-lg border px-3 py-2 text-sm font-medium transition ${
-                index === 1
+                index === departureSelectedIndex
                   ? "border-orange-400 bg-orange-50 text-orange-700"
                   : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-300"
               }`}
@@ -73,7 +88,7 @@ export function ActionButtons({ location, duration, timeRange, group }: ActionBu
               key={slot}
               type="button"
               className={`rounded-lg border px-4 py-2 text-sm font-semibold transition ${
-                index === 0
+                index === timeSlotSelectedIndex
                   ? "border-orange-500 bg-orange-500 text-white"
                   : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-300"
               }`}
@@ -84,22 +99,19 @@ export function ActionButtons({ location, duration, timeRange, group }: ActionBu
         </div>
       </div>
 
-      <div className="flex flex-row gap-3 border-t border-zinc-100 pt-4">
+      <div className="flex flex-row items-center justify-between gap-4 border-t border-zinc-100 pt-4">
+        <p className="min-w-0">
+          <span className="text-lg font-bold text-orange-600">{formatPriceVnd(pricePerPerson)}</span>
+          <span className="text-sm font-normal text-zinc-600"> / người</span>
+        </p>
         <a
           href={storyDetailConnectUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex w-full items-center justify-center rounded-lg bg-sky-600 px-5 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-sky-500"
+          className="inline-flex shrink-0 items-center justify-center rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-400"
         >
-          Kết nối
+          Đăng ký ngay
         </a>
-        <button
-          type="button"
-          onClick={() => router.back()}
-          className="w-full rounded-lg border border-zinc-300 bg-white px-5 py-2.5 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-50"
-        >
-          Thoát
-        </button>
       </div>
     </div>
   );

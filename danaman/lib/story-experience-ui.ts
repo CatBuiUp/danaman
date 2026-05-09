@@ -22,7 +22,7 @@ const GROUP_SIZES: GroupSize[] = ["Nhóm nhỏ", "Nhóm vừa", "Nhóm lớn"];
 
 const TIME_RANGES = [
   "11:00 - 20:00",
-  "08:00 - 18:00",
+  "17:30 - 20:00",
   "14:00 - 21:30",
   "09:00 - 17:00",
 ];
@@ -40,7 +40,7 @@ const INCLUDES_OPTIONS = [
 
 const EXCLUDES_OPTIONS = [
   "Chi phí cá nhân khác.",
-  "Di chuyển cá nhân ngoài giờ hẹn; chi phí phát sinh không trong chương trình.",
+  "Di chuyển cá nhân ngoài tiếng hẹn; chi phí phát sinh không trong chương trình.",
   "Đồ uống có cồn ngoài gói; chi tiêu cá nhân.",
   "Phụ phí dịch vụ thêm không đăng ký trước.",
 ];
@@ -54,9 +54,9 @@ const LANGUAGE_OPTIONS = [
 function durationLabelFromStory(story: Story): string {
   const raw = story.readTime?.trim();
   if (!raw) return "3 - 4 tiếng";
-  if (raw.includes("phút đọc")) return raw.replace("phút đọc", "tiếng");
+  
   const minMatch = raw.match(/(\d+)\s*min\s*read/i);
-  if (minMatch) return `${minMatch[1]} phút đọc`;
+  if (minMatch) return `${minMatch[1]} tiếng`;
   return raw;
 }
 

@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { storyDetailConnectUrl } from "@/lib/footer-social-links";
-import type { StoryExperienceUi } from "@/lib/story-experience-ui";
+import type { GroupSize, StoryExperienceUi } from "@/lib/story-experience-ui";
 
 type ActionButtonsProps = {
   location: string;
@@ -10,6 +12,21 @@ type ActionButtonsProps = {
 
 function formatPriceVnd(value: number) {
   return `${value.toLocaleString("vi-VN")}đ`;
+}
+
+function groupSizeHeadcountLabel(groupSize: GroupSize): string {
+  switch (groupSize) {
+    case "Nhóm nhỏ":
+      return "1 - 3";
+    case "Nhóm vừa":
+      return "4 - 8";
+    case "Nhóm lớn":
+      return "9 - 30";
+    default: {
+      const _exhaustive: never = groupSize;
+      return _exhaustive;
+    }
+  }
 }
 
 export function ActionButtons({ location, experience }: ActionButtonsProps) {
@@ -29,8 +46,16 @@ export function ActionButtons({ location, experience }: ActionButtonsProps) {
     languages,
   } = experience;
 
+  const [selectedDepartureIndex, setSelectedDepartureIndex] = useState(departureSelectedIndex);
+  const [selectedTimeSlotIndex, setSelectedTimeSlotIndex] = useState(timeSlotSelectedIndex);
+
+  useEffect(() => {
+    setSelectedDepartureIndex(departureSelectedIndex);
+    setSelectedTimeSlotIndex(timeSlotSelectedIndex);
+  }, [departureSelectedIndex, timeSlotSelectedIndex]);
+
   return (
-    <div className="w-full min-w-0 max-w-full space-y-5 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm lg:sticky lg:top-6">
+    <div className="w-full min-w-0 max-w-full space-y-5 rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm lg:sticky lg:top-1">
       <h2 className="text-2xl font-bold text-zinc-900">Thông tin trải nghiệm</h2>
 
       <div className="min-w-0 space-y-3 break-words text-sm text-zinc-700">
@@ -48,7 +73,7 @@ export function ActionButtons({ location, experience }: ActionButtonsProps) {
           <span className="font-semibold text-zinc-900">Địa điểm:</span> {location}
         </p>
         <p>
-          <span className="font-semibold text-zinc-900">Nhóm:</span> {groupSize}
+          <span className="font-semibold text-zinc-900">Nhóm:</span> {groupSizeHeadcountLabel(groupSize)} người
         </p>
         <p>
           <span className="font-semibold text-zinc-900">Bao gồm:</span> {includes}
@@ -68,8 +93,10 @@ export function ActionButtons({ location, experience }: ActionButtonsProps) {
             <button
               key={date}
               type="button"
-              className={`shrink-0 rounded-lg border px-3 py-2 text-sm font-medium transition ${
-                index === departureSelectedIndex
+              aria-pressed={selectedDepartureIndex === index}
+              onClick={() => setSelectedDepartureIndex(index)}
+              className={`shrink-0 rounded-lg border px-3 py-2 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400 ${
+                selectedDepartureIndex === index
                   ? "border-orange-400 bg-orange-50 text-orange-700"
                   : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-300"
               }`}
@@ -87,8 +114,10 @@ export function ActionButtons({ location, experience }: ActionButtonsProps) {
             <button
               key={slot}
               type="button"
-              className={`rounded-lg border px-4 py-2 text-sm font-semibold transition ${
-                index === timeSlotSelectedIndex
+              aria-pressed={selectedTimeSlotIndex === index}
+              onClick={() => setSelectedTimeSlotIndex(index)}
+              className={`rounded-lg border px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400 ${
+                selectedTimeSlotIndex === index
                   ? "border-orange-500 bg-orange-500 text-white"
                   : "border-zinc-200 bg-white text-zinc-700 hover:border-zinc-300"
               }`}

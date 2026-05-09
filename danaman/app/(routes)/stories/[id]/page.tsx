@@ -76,7 +76,7 @@ export default async function StoryDetailPage({ params }: PageProps) {
     <div className="flex min-w-0 max-w-full flex-col gap-[10px] overflow-x-hidden px-6 py-8 sm:px-10 lg:px-16">
       <section className="grid min-w-0 max-w-full gap-8 lg:grid-cols-10">
         <div className="min-w-0 space-y-6 lg:col-span-7">
-          <ImageGallery images={gallery} title={story.title} />
+          <ImageGallery images={gallery} title={story.title} description={story.description} />
           <StoryContent paragraphs={paragraphs} quote={story.quote} />
         </div>
 

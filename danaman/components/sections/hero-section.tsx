@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 export function HeroSection() {
   return (
     <section className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-hidden">
@@ -27,7 +28,12 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-wrap gap-3">
-              <Button href="#stories">Xem câu chuyện</Button>
+            <Link
+              href="#stories"
+              className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-400"
+            >
+              Khám phá trải nghiệm
+            </Link>
               <Button href="#opportunities">Tham gia cộng đồng</Button>
             </div>
           </div>

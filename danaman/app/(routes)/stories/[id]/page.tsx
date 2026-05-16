@@ -3,9 +3,11 @@ import { notFound } from "next/navigation";
 
 import { ActionButtons, ImageGallery, StoryContent } from "@/components/story-detail";
 import { listResources } from "@/lib/server/controllers/resource-controller";
+import { isXmlMockStoryInactive } from "@/lib/stories-xml";
 import {
   mapStoryToFeaturedExperience,
   resolveFeaturedListIndex,
+  type StoryExperienceUi,
 } from "@/lib/story-experience-ui";
 import type { Story } from "@/types";
 
@@ -16,7 +18,7 @@ type PageProps = {
 type StoryApiResponse = {
   success: boolean;
   message: string;
-  data?: Story;
+  data?: Story & { experience?: StoryExperienceUi };
 };
 
 /** Base URL for server-side fetch to this app's API (NEXTAUTH_URL is often unset on Vercel). */
@@ -37,7 +39,7 @@ async function resolvePublicBaseUrl(): Promise<string> {
   return "http://localhost:3000";
 }
 
-async function getStoryDetail(id: string): Promise<Story | null> {
+async function getStoryDetail(id: string): Promise<(Story & { experience?: StoryExperienceUi }) | null> {
   const baseUrl = await resolvePublicBaseUrl();
   const response = await fetch(`${baseUrl}/api/stories/${id}`, {
     method: "GET",
@@ -65,12 +67,13 @@ export default async function StoryDetailPage({ params }: PageProps) {
 
   let listStories: { id: string }[] = [];
   try {
-    listStories = (await listResources("stories")) as Story[];
+    const raw = (await listResources("stories")) as Story[];
+    listStories = raw.filter((s) => !isXmlMockStoryInactive(s.id));
   } catch {
     listStories = [];
   }
   const featuredIndex = resolveFeaturedListIndex(id, listStories);
-  const experience = mapStoryToFeaturedExperience(story, featuredIndex);
+  const experience = story.experience ?? mapStoryToFeaturedExperience(story, featuredIndex);
 
   return (
     <div className="flex min-w-0 max-w-full flex-col gap-[10px] overflow-x-hidden px-6 py-8 sm:px-10 lg:px-16">

@@ -1,10 +1,27 @@
 import { createResource, listResources } from "@/lib/server/controllers/resource-controller";
 import { fail, ok } from "@/lib/server/api-response";
+import { isXmlMockStoryInactive, loadActiveStoryRecords } from "@/lib/stories-xml";
 
 export async function GET() {
   try {
     const stories = await listResources("stories");
-    return ok(stories, "Stories fetched successfully");
+    if (Array.isArray(stories) && stories.length > 0) {
+      const filtered = stories.filter((row) => {
+        const id = typeof (row as { id?: unknown }).id === "string" ? (row as { id: string }).id : "";
+        return !id || !isXmlMockStoryInactive(id);
+      });
+      return ok(filtered, "Stories fetched successfully");
+    }
+  } catch {
+    // Fallback to XML mock when DB is empty or Prisma is unavailable.
+  }
+
+  try {
+    const fromXml = loadActiveStoryRecords().map((r) => ({
+      ...r.story,
+      experience: r.experience,
+    }));
+    return ok(fromXml, "Stories fetched successfully");
   } catch (error) {
     return fail("Failed to fetch stories", 500, error);
   }

@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Quản lý nội dung story mock và panel "Thông tin trải nghiệm" / Đăng ký ngay.
+  - active="false": không load — không có trong API fallback, featured, và GET /api/stories/[id] (404) khi chỉ có mock XML.
+  - GroupSize: một trong Nhóm nhỏ | Nhóm vừa | Nhóm lớn
+  - Image / Gallery.ImageUrl: đường dẫn static trong public (vd. /stories/slug.jpg).
+-->
+<Stories>
+  <Story id="mock-story-1" active="false">
+    <Image>/stories/nguoi-tre-giu-gin-bo-bien-da-nang.jpg</Image>
+    <Gallery>
+      <ImageUrl>/stories/nguoi-tre-giu-gin-bo-bien-da-nang-1.jpg</ImageUrl>
+      <ImageUrl>/stories/nguoi-tre-giu-gin-bo-bien-da-nang-2.jpg</ImageUrl>
+      <ImageUrl>/stories/nguoi-tre-giu-gin-bo-bien-da-nang-3.jpg</ImageUrl>
+    </Gallery>
+    <Title>Người trẻ giữ gìn bờ biển Đà Nẵng</Title>
+    <Description>Nhóm tình nguyện viên tổ chức đốn rác và làm lan tỏa nhận thức bảo vệ môi trường biển.</Description>
+    <Content>
+      <Paragraph>Mỗi cuối tuần, một nhóm bạn trẻ tại Đà Nẵng lại cùng nhau thu gom rác và phân loại tại bãi biển. Hành động nhỏ nhưng đã tạo ra sự thay đổi rõ ràng trong nhận thức của người dân địa phương.</Paragraph>
+      <Paragraph>Không chỉ dọn rác, họ còn tổ chức workshop nhỏ cho học sinh và khách du lịch để chia sẻ cách bảo vệ hệ sinh thái biển. Các hoạt động này giúp kết nối nhiều nhóm cộng đồng khác nhau cùng chung mục tiêu.</Paragraph>
+      <Paragraph>Trong 6 thang, nhom da mo rong du an den ba bai bien lon va xay dung mang luoi tinh nguyen vien thuong xuyen.</Paragraph>
+    </Content>
+    <Quote>Khi mọi người cùng hành động một chút, bờ biển sẽ thay đổi rất nhanh.</Quote>
+    <Author>Minh Anh</Author>
+    <AuthorAvatar>https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&amp;fit=crop&amp;w=200&amp;q=80</AuthorAvatar>
+    <PublishedAt>20/05/2024</PublishedAt>
+    <Location>Da Nang</Location>
+    <Tags>
+      <Tag>Moi truong</Tag>
+      <Tag>Cong dong</Tag>
+      <Tag>Tinh nguyen</Tag>
+    </Tags>
+    <ConnectionGroup>Nhom Ban Tre Vi Bien Xanh</ConnectionGroup>
+    <ReadTime>5 min read</ReadTime>
+    <Category>Cong dong</Category>
+    <Experience>
+      <DurationLabel>5 tiếng</DurationLabel>
+      <GroupSize>Nhóm nhỏ</GroupSize>
+      <PricePerPerson>350000</PricePerPerson>
+      <Rating>4.6</Rating>
+      <ReviewCount>60</ReviewCount>
+      <TimeRange>11:00 - 20:00</TimeRange>
+      <DepartureSelectedIndex>0</DepartureSelectedIndex>
+      <DepartureDates>
+        <Date>T2 20/05</Date>
+        <Date>T3 21/05</Date>
+        <Date>T4 22/05</Date>
+        <Date>T5 23/05</Date>
+        <Date>T6 24/05</Date>
+        <Date>T7 25/05</Date>
+        <Date>CN 26/05</Date>
+      </DepartureDates>
+      <TimeSlotSelectedIndex>0</TimeSlotSelectedIndex>
+      <TimeSlots>
+        <Slot>17:30</Slot>
+        <Slot>18:00</Slot>
+        <Slot>18:30</Slot>
+      </TimeSlots>
+      <Includes>Ăn tối, nước uống, câu chuyện, hướng dẫn viên bản địa.</Includes>
+      <Excludes>Chi phí cá nhân khác.</Excludes>
+      <Languages>Tiếng Việt, English.</Languages>
+    </Experience>
+  </Story>
+
+  <Story id="mock-story-2" active="true">
+    <Image>/stories/bua-com-lang-chai-0.jpg</Image>
+    <Gallery>
+      <ImageUrl>/stories/bua-com-lang-chai-0.jpg</ImageUrl>
+      <ImageUrl>/stories/bua-com-lang-chai-1.jpg</ImageUrl>
+      <ImageUrl>/stories/bua-com-lang-chai-2.jpg</ImageUrl>
+      <ImageUrl>/stories/bua-com-lang-chai-3.jpg</ImageUrl>
+    </Gallery>
+    <Title>Bữa Cơm Làng Chài</Title>
+    <Description>Ăn cùng gia đình ngư dân, nghe chuyện đời biển Đà Nẵng.</Description>
+    <Content>
+      <Paragraph>Tại một gia đình ngư dân, cả gia đình đều tham gia để chia sẻ cảm xúc và kiến thức về đời sống biển.</Paragraph>
+      <Paragraph>Các bữa cơm được chia sẻ với nhau, và cả gia đình đều tham gia để chia sẻ cảm xúc và kiến thức về đời sống biển.</Paragraph>
+    </Content>
+    <Quote>Mỗi bữa cơm đều có một câu chuyện đầy cảm hứng.</Quote>
+    <Author>Ngư dân</Author>
+    <AuthorAvatar>https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&amp;fit=crop&amp;w=200&amp;q=80</AuthorAvatar>
+    <PublishedAt>16/05/2024</PublishedAt>
+    <Location>Nhà người dân tại làng chài ven biển</Location>
+    <Tags>
+      <Tag>Mới</Tag>
+      <Tag>Tre em</Tag>
+      <Tag>Ky nang song</Tag>
+    </Tags>
+    <ConnectionGroup>Lop hoc Cuoi Tuan</ConnectionGroup>
+    <ReadTime>2 - 3 tiếng</ReadTime>
+    <Category>Giao duc</Category>
+    <Experience>
+      <DurationLabel>2 - 3 tiếng</DurationLabel>
+      <GroupSize>Nhóm vừa</GroupSize>
+      <PricePerPerson>450000</PricePerPerson>
+      <Rating>4.7</Rating>
+      <ReviewCount>72</ReviewCount>
+      <TimeRange>17:30 - 20:00</TimeRange>
+      <DepartureSelectedIndex>1</DepartureSelectedIndex>
+      <DepartureDates>
+        <Date>T2 20/05</Date>
+        <Date>T3 21/05</Date>
+        <Date>T4 22/05</Date>
+        <Date>T5 23/05</Date>
+        <Date>T6 24/05</Date>
+        <Date>T7 25/05</Date>
+        <Date>CN 26/05</Date>
+      </DepartureDates>
+      <TimeSlotSelectedIndex>1</TimeSlotSelectedIndex>
+      <TimeSlots>
+        <Slot>17:30</Slot>
+        <Slot>18:00</Slot>
+        <Slot>18:30</Slot>
+      </TimeSlots>
+      <Includes>Đón tại điểm hẹn, hoạt động cộng đồng, tài liệu tham khảo, quà lưu niệm nhỏ.</Includes>
+      <Excludes>Di chuyển cá nhân ngoài tiếng hẹn; chi phí phát sinh không trong chương trình.</Excludes>
+      <Languages>Tiếng Việt.</Languages>
+    </Experience>
+  </Story>
+
+  <Story id="mock-story-3" active="true">
+    <Image>/stories/hoc-lam-nuoc-mam.jpg</Image>
+    <Gallery>
+      <ImageUrl>/stories/hoc-lam-nuoc-mam-1.jpg</ImageUrl>
+      <ImageUrl>/stories/hoc-lam-nuoc-mam-2.jpg</ImageUrl>
+      <ImageUrl>/stories/hoc-lam-nuoc-mam-3.jpg</ImageUrl>
+    </Gallery>
+    <Title>Học làm nước mắm</Title>
+    <Description>Buổi trải nghiệm nửa ngày: từ chọn nguyên liệu, tìm hiểu tỷ lệ muối–cá, đến nếm thử và mang về một chai nước mắm nhỏ do chính tay bạn tham gia chắt lọc.</Description>
+    <Content>
+      <Paragraph>Tại một cơ sở nhỏ ven biển, gia đình ba đời làm nước mắm cốt mở cửa đón nhóm nhỏ mỗi cuối tuần. Bạn sẽ đi qua từng bước: cá cơm tươi được sơ chế thế nào, muối hạt được cân ra sao, và vì sao thùng gỗ lại được ưa chuộng hơn thùng nhựa khi ủ chượp.</Paragraph>
+      <Paragraph>Nghệ nhân kể chuyện thời tiết, nước biển và “mùi làng” — những thứ không nằm trong sách giáo khoa nhưng quyết định vị ngọt đậm đà của từng mẻ. Phần cuối buổi, mỗi người được thử các vạch độ mặn khác nhau và tự tay lọc một ít nước cốt qua túi vải, mang về chai thủy tinh nhỏ kèm nhãn ghi ngày ủ.</Paragraph>
+      <Paragraph>Nhiều bạn trẻ thành phố tham gia xong mới hiểu vì sao một chai nước mắm truyền thống lại mất tháng để hoàn thiện — và vì sao việc giữ nghề không chỉ là kinh tế, mà là giữ lại một phần ký ức vị giác của vùng biển.</Paragraph>
+    </Content>
+    <Quote>Mặn ngọt là chuyện của thời gian; kiên nhẫn là công thức thứ hai, sau cá và muối.</Quote>
+    <Author>Phương Linh</Author>
+    <AuthorAvatar>https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&amp;fit=crop&amp;w=200&amp;q=80</AuthorAvatar>
+    <PublishedAt>10/05/2024</PublishedAt>
+    <Location>Làng chài ven biển, quận Sơn Trà</Location>
+    <Tags>
+      <Tag>Lang nghe</Tag>
+      <Tag>Am thuc</Tag>
+      <Tag>Van hoa</Tag>
+    </Tags>
+    <ConnectionGroup>Danaman Lang Nghe</ConnectionGroup>
+    <ReadTime>3 - 4 tiếng</ReadTime>
+    <Category>Trai nghiem</Category>
+    <Experience>
+      <DurationLabel>3 - 4 tiếng</DurationLabel>
+      <GroupSize>Nhóm lớn</GroupSize>
+      <PricePerPerson>480000</PricePerPerson>
+      <Rating>4.8</Rating>
+      <ReviewCount>84</ReviewCount>
+      <TimeRange>08:00 - 12:00</TimeRange>
+      <DepartureSelectedIndex>2</DepartureSelectedIndex>
+      <DepartureDates>
+        <Date>T2 20/05</Date>
+        <Date>T3 21/05</Date>
+        <Date>T4 22/05</Date>
+        <Date>T5 23/05</Date>
+        <Date>T6 24/05</Date>
+        <Date>T7 25/05</Date>
+        <Date>CN 26/05</Date>
+      </DepartureDates>
+      <TimeSlotSelectedIndex>0</TimeSlotSelectedIndex>
+      <TimeSlots>
+        <Slot>08:00</Slot>
+        <Slot>08:30</Slot>
+        <Slot>09:00</Slot>
+      </TimeSlots>
+      <Includes>Hướng dẫn thực hành, nguyên liệu và dụng cụ demo, thử nếm các vạch độ mặn, một chai nước mắm nhỏ mang về, trà đá và khăn lạnh trong buổi.</Includes>
+      <Excludes>Di chuyển từ trung tâm thành phố đến làng chài; chi phí cá nhân ngoài chương trình.</Excludes>
+      <Languages>Tiếng Việt, English (hướng dẫn hỗ trợ).</Languages>
+    </Experience>
+  </Story>
+
+  <Story id="mock-story-4" active="true">
+    <Image>/stories/food-tour-dia-phuong.jpg</Image>
+    <Gallery>
+      <ImageUrl>/stories/food-tour-dia-phuong-1.jpg</ImageUrl>
+      <ImageUrl>/stories/food-tour-dia-phuong-2.jpg</ImageUrl>
+      <ImageUrl>/stories/food-tour-dia-phuong-3.jpg</ImageUrl>
+    </Gallery>
+    <Title>Food tour địa phương</Title>
+    <Description>Hành trình ăn uống có hướng dẫn viên bản địa: thử món vặt, mì Quảng, bánh tráng cuốn thịt heo và trà đá vỉa hè, kèm câu chuyện về từng con phố.</Description>
+    <Content>
+      <Paragraph>Tour bắt đầu ở khu chợ chiều, nơi bạn học cách nhận ra loại rau thơ dùng cho bún mắm hay mì Quảng, và vì sao quán cùng một món lại khác nhau chỉ sau một con hẻm. Hướng dẫn viên không đọc danh sách món mà kể chuyện gia đình mở quán, cách họ canh lửa và giữ khách quen suốt mấy chục năm.</Paragraph>
+      <Paragraph>Điểm dừng tiếp theo là quán nhỏ trong hẻm — chỗ ngồi thấp, bàn nhựa, nhưng lại là nơi có món chỉ bán đúng hai tiếng mỗi tối. Nhóm được chia suất nhỏ để nếm nhiều vị, có thời gian chụp ảnh và hỏi đầu bếp về nguyên liệu lấy từ đâu mỗi sáng.</Paragraph>
+      <Paragraph>Buổi kết thúc bằng món tráng miệng địa phương và trà đá, với “bản đồ ẩm thực” in sẵn: các quán đã ghé, quán gợi ý cho ngày hôm sau, và vài câu tiếng địa phương hữu ích khi gọi món. Nhiều du khách nói họ cảm thấy thành phố “đỡ lạ” chỉ sau một buổi tối đi bộ.</Paragraph>
+    </Content>
+    <Quote>Ẩm thực là lối tắt thân thiện nhất để hiểu một nơi — miếng ngon đầu tiên thường bắt đầu từ lời chào ở quán vỉa hè.</Quote>
+    <Author>Hoàng Nam</Author>
+    <AuthorAvatar>https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&amp;fit=crop&amp;w=200&amp;q=80</AuthorAvatar>
+    <PublishedAt>08/05/2024</PublishedAt>
+    <Location>Xuất phát khu trung tâm, quận Hải Châu</Location>
+    <Tags>
+      <Tag>Am thuc</Tag>
+      <Tag>Du lich</Tag>
+      <Tag>Dia phuong</Tag>
+    </Tags>
+    <ConnectionGroup>Danaman Food Walk</ConnectionGroup>
+    <ReadTime>3 - 4 tiếng</ReadTime>
+    <Category>Trai nghiem</Category>
+    <Experience>
+      <DurationLabel>3 - 4 tiếng</DurationLabel>
+      <GroupSize>Nhóm vừa</GroupSize>
+      <PricePerPerson>650000</PricePerPerson>
+      <Rating>4.9</Rating>
+      <ReviewCount>96</ReviewCount>
+      <TimeRange>17:30 - 21:00</TimeRange>
+      <DepartureSelectedIndex>3</DepartureSelectedIndex>
+      <DepartureDates>
+        <Date>T2 20/05</Date>
+        <Date>T3 21/05</Date>
+        <Date>T4 22/05</Date>
+        <Date>T5 23/05</Date>
+        <Date>T6 24/05</Date>
+        <Date>T7 25/05</Date>
+        <Date>CN 26/05</Date>
+      </DepartureDates>
+      <TimeSlotSelectedIndex>0</TimeSlotSelectedIndex>
+      <TimeSlots>
+        <Slot>17:30</Slot>
+        <Slot>18:00</Slot>
+        <Slot>18:30</Slot>
+      </TimeSlots>
+      <Includes>Hướng dẫn viên bản địa, các suất ăn thử theo chương trình, nước lọc và trà đá trong tour, bản đồ ẩm thực in tay.</Includes>
+      <Excludes>Đồ uống có cồn ngoài gói; món gọi thêm ngoài lịch trình; chi phí di chuyển về khách sạn.</Excludes>
+      <Languages>Tiếng Việt, English.</Languages>
+    </Experience>
+  </Story>
+
+  <Story id="mock-story-5" active="false">
+    <Image>/stories/dem-nhac-duong-pho-gay-quy-cho-thu-vien-cong-dong.jpg</Image>
+    <Gallery>
+      <ImageUrl>/stories/dem-nhac-duong-pho-gay-quy-cho-thu-vien-cong-dong-1.jpg</ImageUrl>
+      <ImageUrl>/stories/dem-nhac-duong-pho-gay-quy-cho-thu-vien-cong-dong-2.jpg</ImageUrl>
+      <ImageUrl>/stories/dem-nhac-duong-pho-gay-quy-cho-thu-vien-cong-dong-3.jpg</ImageUrl>
+    </Gallery>
+    <Title>Dem nhac duong pho gay quy cho thu vien cong dong</Title>
+    <Description>Su kien quy tu nhieu nghe si tre, thu hut hang tram ban tre tham gia.</Description>
+    <Content>
+      <Paragraph>Dem nhac duoc to chuc tai khong gian cong cong, ket hop trinh dien va ke chuyen ve hanh trinh lap thu vien.</Paragraph>
+      <Paragraph>Toan bo kinh phi gay quy duoc dung de mua sach, thiet bi hoc tap va cai tao khong gian doc cho tre nho.</Paragraph>
+    </Content>
+    <Quote>Am nhac la cach nhanh nhat de ket noi nhieu nguoi vi mot muc tieu chung.</Quote>
+    <Author>Ngoc Bich</Author>
+    <AuthorAvatar>https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&amp;fit=crop&amp;w=200&amp;q=80</AuthorAvatar>
+    <PublishedAt>06/05/2024</PublishedAt>
+    <Location>Ngu Hanh Son</Location>
+    <Tags>
+      <Tag>Su kien</Tag>
+      <Tag>Am nhac</Tag>
+      <Tag>Thu vien</Tag>
+    </Tags>
+    <ConnectionGroup>Danaman Event Team</ConnectionGroup>
+    <ReadTime>3 min read</ReadTime>
+    <Category>Su kien</Category>
+    <Experience>
+      <DurationLabel>3 tiếng</DurationLabel>
+      <GroupSize>Nhóm vừa</GroupSize>
+      <PricePerPerson>490000</PricePerPerson>
+      <Rating>4.6</Rating>
+      <ReviewCount>108</ReviewCount>
+      <TimeRange>11:00 - 20:00</TimeRange>
+      <DepartureSelectedIndex>4</DepartureSelectedIndex>
+      <DepartureDates>
+        <Date>T2 20/05</Date>
+        <Date>T3 21/05</Date>
+        <Date>T4 22/05</Date>
+        <Date>T5 23/05</Date>
+        <Date>T6 24/05</Date>
+        <Date>T7 25/05</Date>
+        <Date>CN 26/05</Date>
+      </DepartureDates>
+      <TimeSlotSelectedIndex>1</TimeSlotSelectedIndex>
+      <TimeSlots>
+        <Slot>17:30</Slot>
+        <Slot>18:00</Slot>
+        <Slot>18:30</Slot>
+      </TimeSlots>
+      <Includes>Ăn tối, nước uống, câu chuyện, hướng dẫn viên bản địa.</Includes>
+      <Excludes>Chi phí cá nhân khác.</Excludes>
+      <Languages>Tiếng Việt.</Languages>
+    </Experience>
+  </Story>
+
+  <Story id="mock-story-6" active="false">
+    <Image>/stories/tiem-banh-nho-trao-co-hoi-viec-lam-cho-nguoi-khuyet-tat.jpg</Image>
+    <Gallery>
+      <ImageUrl>/stories/tiem-banh-nho-trao-co-hoi-viec-lam-cho-nguoi-khuyet-tat-1.jpg</ImageUrl>
+      <ImageUrl>/stories/tiem-banh-nho-trao-co-hoi-viec-lam-cho-nguoi-khuyet-tat-2.jpg</ImageUrl>
+      <ImageUrl>/stories/tiem-banh-nho-trao-co-hoi-viec-lam-cho-nguoi-khuyet-tat-3.jpg</ImageUrl>
+    </Gallery>
+    <Title>Tiem banh nho trao co hoi viec lam cho nguoi khuyet tat</Title>
+    <Description>Mo hinh kinh doanh ben vung giup nhieu lao dong yeu the co thu nhap on dinh.</Description>
+    <Content>
+      <Paragraph>Tiem banh ket hop dao tao ky nang co ban va ho tro moi truong lam viec linh hoat cho nhan su dac thu.</Paragraph>
+      <Paragraph>Doanh thu tang deu theo thang, cho phep mo rong quy mo va tuyen them nhieu vi tri moi.</Paragraph>
+    </Content>
+    <Quote>Khi doanh nghiep dat con nguoi vao trung tam, tac dong xa hoi se den mot cach tu nhien.</Quote>
+    <Author>Quoc Huy</Author>
+    <AuthorAvatar>https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&amp;fit=crop&amp;w=200&amp;q=80</AuthorAvatar>
+    <PublishedAt>03/05/2024</PublishedAt>
+    <Location>Cam Le</Location>
+    <Tags>
+      <Tag>Tac dong xa hoi</Tag>
+      <Tag>Viec lam</Tag>
+      <Tag>Bao gom</Tag>
+    </Tags>
+    <ConnectionGroup>Danaman Social Biz</ConnectionGroup>
+    <ReadTime>5 min read</ReadTime>
+    <Category>Tac dong xa hoi</Category>
+    <Experience>
+      <DurationLabel>5 tiếng</DurationLabel>
+      <GroupSize>Nhóm lớn</GroupSize>
+      <PricePerPerson>525000</PricePerPerson>
+      <Rating>4.7</Rating>
+      <ReviewCount>120</ReviewCount>
+      <TimeRange>17:30 - 20:00</TimeRange>
+      <DepartureSelectedIndex>5</DepartureSelectedIndex>
+      <DepartureDates>
+        <Date>T2 20/05</Date>
+        <Date>T3 21/05</Date>
+        <Date>T4 22/05</Date>
+        <Date>T5 23/05</Date>
+        <Date>T6 24/05</Date>
+        <Date>T7 25/05</Date>
+        <Date>CN 26/05</Date>
+      </DepartureDates>
+      <TimeSlotSelectedIndex>2</TimeSlotSelectedIndex>
+      <TimeSlots>
+        <Slot>17:30</Slot>
+        <Slot>18:00</Slot>
+        <Slot>18:30</Slot>
+      </TimeSlots>
+      <Includes>Đón tại điểm hẹn, hoạt động cộng đồng, tài liệu tham khảo, quà lưu niệm nhỏ.</Includes>
+      <Excludes>Di chuyển cá nhân ngoài tiếng hẹn; chi phí phát sinh không trong chương trình.</Excludes>
+      <Languages>Tiếng Việt, English (hướng dẫn hỗ trợ).</Languages>
+    </Experience>
+  </Story>
+
+  <Story id="mock-story-7" active="false">
+    <Image>/stories/kham-pha-lang-nghe-truyen-thong-cung-huong-dan-vien-ban-dia.jpg</Image>
+    <Gallery>
+      <ImageUrl>/stories/kham-pha-lang-nghe-truyen-thong-cung-huong-dan-vien-ban-dia-1.jpg</ImageUrl>
+      <ImageUrl>/stories/kham-pha-lang-nghe-truyen-thong-cung-huong-dan-vien-ban-dia-2.jpg</ImageUrl>
+      <ImageUrl>/stories/kham-pha-lang-nghe-truyen-thong-cung-huong-dan-vien-ban-dia-3.jpg</ImageUrl>
+    </Gallery>
+    <Title>Kham pha lang nghe truyen thong cung huong dan vien ban dia</Title>
+    <Description>Chuoi workshop giup du khach hieu hon ve lich su va ban sac dia phuong.</Description>
+    <Content>
+      <Paragraph>Chuoi tour nho dua du khach den cac lang nghe, noi nghe nhan truc tiep chia se quy trinh san xuat.</Paragraph>
+      <Paragraph>Hoat dong tao thu nhap bo sung cho nguoi dan va giup bao ton tri thuc truyen thong tai dia phuong.</Paragraph>
+    </Content>
+    <Quote>Moi hanh trinh deu co the tro thanh cau noi giua du khach va ban sac dia phuong.</Quote>
+    <Author>Tuan Vu</Author>
+    <AuthorAvatar>https://images.unsplash.com/photo-1504257432389-52343af06ae3?auto=format&amp;fit=crop&amp;w=200&amp;q=80</AuthorAvatar>
+    <PublishedAt>01/05/2024</PublishedAt>
+    <Location>Hoa Vang</Location>
+    <Tags>
+      <Tag>Du lich</Tag>
+      <Tag>Lang nghe</Tag>
+      <Tag>Trai nghiem</Tag>
+    </Tags>
+    <ConnectionGroup>Danaman Local Guide</ConnectionGroup>
+    <ReadTime>4 min read</ReadTime>
+    <Category>Du lich</Category>
+    <Experience>
+      <DurationLabel>4 tiếng</DurationLabel>
+      <GroupSize>Nhóm nhỏ</GroupSize>
+      <PricePerPerson>560000</PricePerPerson>
+      <Rating>4.8</Rating>
+      <ReviewCount>132</ReviewCount>
+      <TimeRange>14:00 - 21:30</TimeRange>
+      <DepartureSelectedIndex>6</DepartureSelectedIndex>
+      <DepartureDates>
+        <Date>T2 20/05</Date>
+        <Date>T3 21/05</Date>
+        <Date>T4 22/05</Date>
+        <Date>T5 23/05</Date>
+        <Date>T6 24/05</Date>
+        <Date>T7 25/05</Date>
+        <Date>CN 26/05</Date>
+      </DepartureDates>
+      <TimeSlotSelectedIndex>0</TimeSlotSelectedIndex>
+      <TimeSlots>
+        <Slot>17:30</Slot>
+        <Slot>18:00</Slot>
+        <Slot>18:30</Slot>
+      </TimeSlots>
+      <Includes>Trải nghiệm giao lưu, chụp ảnh, snack nhẹ, kết nối với người địa phương.</Includes>
+      <Excludes>Đồ uống có cồn ngoài gói; chi tiêu cá nhân.</Excludes>
+      <Languages>Tiếng Việt, English.</Languages>
+    </Experience>
+  </Story>
+
+  <!-- Ví dụ: active="false" — story không được serve (list, featured, chi tiết mock). -->
+  <Story id="mock-story-8" active="false">
+    <Image>/stories/co-giao-ve-huu-mo-lop-day-mien-phi-cho-cong-nhan.jpg</Image>
+    <Gallery>
+      <ImageUrl>/stories/co-giao-ve-huu-mo-lop-day-mien-phi-cho-cong-nhan-1.jpg</ImageUrl>
+      <ImageUrl>/stories/co-giao-ve-huu-mo-lop-day-mien-phi-cho-cong-nhan-2.jpg</ImageUrl>
+      <ImageUrl>/stories/co-giao-ve-huu-mo-lop-day-mien-phi-cho-cong-nhan-3.jpg</ImageUrl>
+    </Gallery>
+    <Title>Co giao ve huu mo lop day mien phi cho cong nhan</Title>
+    <Description>Moi toi, lop hoc nho sang den, giup cong nhan bo sung ky nang va tu tin hon.</Description>
+    <Content>
+      <Paragraph>Lop hoc toi tap trung vao ky nang giao tiep, tin hoc co ban va ho tro hoan thien ho so viec lam.</Paragraph>
+      <Paragraph>Sau nhieu thang, nhieu hoc vien da tim duoc cong viec on dinh hon va cai thien thu nhap.</Paragraph>
+    </Content>
+    <Quote>Hoc tap khong co gioi han tuoi tac, chi can co mot co hoi dung luc.</Quote>
+    <Author>Lan Chi</Author>
+    <AuthorAvatar>https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&amp;fit=crop&amp;w=200&amp;q=80</AuthorAvatar>
+    <PublishedAt>28/04/2024</PublishedAt>
+    <Location>Thanh Khe</Location>
+    <Tags>
+      <Tag>Cam hung</Tag>
+      <Tag>Giao duc</Tag>
+      <Tag>Cong nhan</Tag>
+    </Tags>
+    <ConnectionGroup>Danaman Learning Circle</ConnectionGroup>
+    <ReadTime>6 min read</ReadTime>
+    <Category>Cam hung</Category>
+    <Experience>
+      <DurationLabel>6 tiếng</DurationLabel>
+      <GroupSize>Nhóm vừa</GroupSize>
+      <PricePerPerson>595000</PricePerPerson>
+      <Rating>4.9</Rating>
+      <ReviewCount>144</ReviewCount>
+      <TimeRange>09:00 - 17:00</TimeRange>
+      <DepartureSelectedIndex>0</DepartureSelectedIndex>
+      <DepartureDates>
+        <Date>T2 20/05</Date>
+        <Date>T3 21/05</Date>
+        <Date>T4 22/05</Date>
+        <Date>T5 23/05</Date>
+        <Date>T6 24/05</Date>
+        <Date>T7 25/05</Date>
+        <Date>CN 26/05</Date>
+      </DepartureDates>
+      <TimeSlotSelectedIndex>1</TimeSlotSelectedIndex>
+      <TimeSlots>
+        <Slot>17:30</Slot>
+        <Slot>18:00</Slot>
+        <Slot>18:30</Slot>
+      </TimeSlots>
+      <Includes>Tham quan có hướng dẫn, bảo hiểm nhóm, nước uống trong buổi.</Includes>
+      <Excludes>Phụ phí dịch vụ thêm không đăng ký trước.</Excludes>
+      <Languages>Tiếng Việt.</Languages>
+    </Experience>
+  </Story>
+</Stories>

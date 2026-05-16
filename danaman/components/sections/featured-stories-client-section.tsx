@@ -5,8 +5,8 @@ import Link from "next/link";
 import { FeaturedCommunityCtaCard } from "@/components/cards";
 import { SectionHeading } from "@/components/ui";
 import { useStories } from "@/lib/hooks/use-stories";
-import { STORY_DETAILS_MOCK } from "@/lib/stories-detail-mock-data";
-import { mapStoryToFeaturedExperience, type GroupSize } from "@/lib/story-experience-ui";
+import type { StoryMockRecord } from "@/lib/story-mock-record";
+import { mapStoryToFeaturedExperience, type GroupSize, type StoryExperienceUi } from "@/lib/story-experience-ui";
 import type { Story } from "@/types";
 
 type FeaturedStoryCardData = {
@@ -21,12 +21,18 @@ type FeaturedStoryCardData = {
   reviewCount: number;
 };
 
+type StoryWithOptionalExperience = Story & { experience?: StoryExperienceUi };
+
 function formatPriceVnd(value: number) {
   return `${value.toLocaleString("vi-VN")}đ`;
 }
 
-function mapStoryToCardData(story: Story, index: number): FeaturedStoryCardData {
-  const xp = mapStoryToFeaturedExperience(story, index);
+function mapStoryToCardData(
+  story: Story,
+  index: number,
+  experienceOverride?: StoryExperienceUi,
+): FeaturedStoryCardData {
+  const xp = experienceOverride ?? mapStoryToFeaturedExperience(story, index);
 
   return {
     id: story.id,
@@ -56,10 +62,10 @@ function FeaturedStoryCard({ story }: { story: FeaturedStoryCardData }) {
         src={story.image}
         alt={story.title}
         fill
-        className="object-cover transition duration-500 group-hover:scale-105"
+        className="object-cover brightness-[1.12] transition duration-500 group-hover:scale-105"
         sizes="(max-width: 768px) 100vw, (max-width: 1023px) 50vw, 25vw"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#071a2f]/95 via-[#071a2f]/65 to-[#071a2f]/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#071a2f]/88 via-[#071a2f]/52 to-[#071a2f]/12" />
 
       <div className="relative z-10 flex h-full flex-col p-4 text-white">
         <span className="inline-flex w-fit rounded-lg bg-emerald-900/90 px-2.5 py-1 text-xs font-semibold">
@@ -105,12 +111,22 @@ function FeaturedStoryCard({ story }: { story: FeaturedStoryCardData }) {
   );
 }
 
-export function FeaturedStoriesClientSection() {
+type FeaturedStoriesClientSectionProps = {
+  /** Nguồn từ `data/stories-mock.xml` (server); dùng khi fetch `/api/stories` lỗi hoặc trả về rỗng. */
+  fallbackStoryRecords: StoryMockRecord[];
+};
+
+export function FeaturedStoriesClientSection({ fallbackStoryRecords }: FeaturedStoriesClientSectionProps) {
   const { stories, isLoading, error, reload } = useStories();
   const storiesToRender: FeaturedStoryCardData[] =
     stories.length > 0
-      ? stories.slice(0, 7).map(mapStoryToCardData)
-      : STORY_DETAILS_MOCK.slice(0, 7).map(mapStoryToCardData);
+      ? stories.slice(0, 7).map((s, index) => {
+          const experience = (s as StoryWithOptionalExperience).experience;
+          return mapStoryToCardData(s, index, experience);
+        })
+      : fallbackStoryRecords.slice(0, 7).map((record, index) =>
+          mapStoryToCardData(record.story, index, record.experience),
+        );
 
   return (
     <section id="stories" className="space-y-6">

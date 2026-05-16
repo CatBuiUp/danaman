@@ -1,15 +1,11 @@
 import { NextResponse } from "next/server";
 
 import { prisma } from "@/lib/prisma";
-import { STORY_DETAILS_MOCK } from "@/lib/stories-detail-mock-data";
+import { getMockStoryRecordById, isXmlMockStoryInactive } from "@/lib/stories-xml";
 
 type RouteContext = {
   params: Promise<{ id: string }>;
 };
-
-function getMockStoryById(id: string) {
-  return STORY_DETAILS_MOCK.find((story) => story.id === id);
-}
 
 export async function GET(_: Request, context: RouteContext) {
   const { id } = await context.params;
@@ -19,7 +15,7 @@ export async function GET(_: Request, context: RouteContext) {
       where: { id },
     });
 
-    if (story) {
+    if (story && !isXmlMockStoryInactive(story.id)) {
       return NextResponse.json({
         success: true,
         message: "Story fetched successfully",
@@ -38,12 +34,15 @@ export async function GET(_: Request, context: RouteContext) {
     // Ignore Prisma runtime errors in local/dev and fallback to mock.
   }
 
-  const mockStory = getMockStoryById(id);
-  if (mockStory) {
+  const mockRecord = getMockStoryRecordById(id);
+  if (mockRecord) {
     return NextResponse.json({
       success: true,
       message: "Mock story fetched successfully",
-      data: mockStory,
+      data: {
+        ...mockRecord.story,
+        experience: mockRecord.experience,
+      },
     });
   }
 

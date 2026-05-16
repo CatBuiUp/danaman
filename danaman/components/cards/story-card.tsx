@@ -17,10 +17,10 @@ export function StoryCard({ story }: StoryCardProps) {
           src={story.image}
           alt={story.title}
           fill
-          className="object-cover transition duration-500 group-hover:scale-105"
+          className="object-cover brightness-[1.12] transition duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#071a2f]/95 via-[#071a2f]/55 to-[#071a2f]/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#071a2f]/88 via-[#071a2f]/45 to-[#071a2f]/5" />
       </div>
 
       <div className="relative z-10 flex h-full flex-col justify-end p-4 pt-[40%] text-white">

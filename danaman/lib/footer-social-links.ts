@@ -2,7 +2,7 @@
  * Liên kết chia sẻ / CTA trên site. Sửa URL tại đây khi cần cập nhật.
  */
 /** Tab mới khi bấm "Kết nối" ở trang chi tiết câu chuyện */
-export const storyDetailConnectUrl = "https://www.facebook.com/nguoidanang.page/";
+export const storyDetailConnectUrl = "https://www.facebook.com/ThucPhamAnToanPhuOng/";
 
 export const footerSocialLinks = {
   facebook: "https://www.facebook.com/groups/1857497534261957/",

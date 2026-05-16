@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { footerSocialLinks } from "@/lib/footer-social-links";
+
 const DEFAULT_AVATARS = [
   "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80",
   "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80",
@@ -28,7 +30,7 @@ export function FeaturedCommunityCtaCard({
   title = "Bạn cũng có câu chuyện tại Đà Nẵng?",
   descriptionLines = DEFAULT_DESCRIPTION_LINES,
   ctaLabel = "Tham gia Danaman ngay",
-  ctaHref = "#opportunities",
+  ctaHref = footerSocialLinks.facebook,
   memberCountLabel = "+2.500",
   memberSubtitle = "thành viên",
   avatarUrls = DEFAULT_AVATARS,
@@ -50,6 +52,8 @@ export function FeaturedCommunityCtaCard({
         </p>
         <Link
           href={ctaHref}
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex w-fit rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-400"
         >
           {ctaLabel}

@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+
+import { footerSocialLinks } from "@/lib/footer-social-links";
 export function HeroSection() {
   return (
     <section className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-hidden">
@@ -34,7 +36,13 @@ export function HeroSection() {
             >
               Khám phá trải nghiệm
             </Link>
-              <Button href="#opportunities">Tham gia cộng đồng</Button>
+              <Button
+                href={footerSocialLinks.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Tham gia cộng đồng
+              </Button>
             </div>
           </div>
 

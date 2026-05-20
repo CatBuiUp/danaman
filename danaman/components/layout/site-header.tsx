@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { siteContentContainerClass } from "@/lib/site-layout";
 import { joinDanamanHref, siteNavLinks } from "@/lib/site-nav";
 
 const HEADER_SCROLL_THRESHOLD = 24;
@@ -31,7 +32,7 @@ export function SiteHeader() {
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <div className="mx-auto flex w-full max-w-[1440px] items-center gap-6 px-6 py-2 sm:px-10 lg:px-14">
+      <div className={`flex w-full items-center gap-6 py-2 ${siteContentContainerClass}`}>
         <Link href="/" className="inline-flex shrink-0 items-center">
           <Image
             src="/danaman_logo.png"

@@ -1,17 +1,25 @@
+import Link from "next/link";
+
 type SectionHeadingProps = {
-  eyebrow: string;
   title: string;
-  description: string;
+  viewAllHref?: string;
+  viewAllLabel?: string;
 };
 
-export function SectionHeading({ eyebrow, title, description }: SectionHeadingProps) {
+export function SectionHeading({ title, viewAllHref, viewAllLabel }: SectionHeadingProps) {
   return (
-    <div className="space-y-3">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-sky-600 dark:text-sky-300">
-        {eyebrow}
-      </p>
-      <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h2>
-      <p className="max-w-3xl text-sm text-zinc-600 dark:text-zinc-300 sm:text-base">{description}</p>
+    <div className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
+      <h2 className="font-[family-name:var(--font-playfair)] text-[2rem] font-medium leading-[1.2] tracking-[-0.5px] text-[#1F2717] sm:text-[2.25rem]">
+        {title}
+      </h2>
+      {viewAllHref && viewAllLabel ? (
+        <Link
+          href={viewAllHref}
+          className="shrink-0 font-[family-name:var(--font-inter)] text-sm leading-[1.6] text-[#5F6557] transition hover:text-[#1F2717]"
+        >
+          {viewAllLabel}
+        </Link>
+      ) : null}
     </div>
   );
 }

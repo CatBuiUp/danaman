@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { siteContentContainerClass } from "@/lib/site-layout";
 import { joinDanamanHref } from "@/lib/site-nav";
 
 const HERO_GRADIENT =
@@ -20,7 +21,7 @@ export function HeroSection() {
       >
         <div className="absolute inset-0" style={{ background: HERO_GRADIENT }} />
 
-        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pt-28 pb-16 sm:px-10 sm:pt-32 lg:px-16 lg:pb-20">
+        <div className={`relative z-10 pt-28 pb-16 sm:pt-32 lg:pb-20 ${siteContentContainerClass}`}>
           <div className="max-w-2xl space-y-6 lg:max-w-3xl lg:space-y-8">
             <p className="font-[family-name:var(--font-montserrat)] text-xs font-light uppercase tracking-[0.32em] text-[#D0AE7D] sm:text-sm">
               DANAMAN

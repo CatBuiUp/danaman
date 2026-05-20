@@ -130,11 +130,7 @@ export function FeaturedStoriesClientSection({ fallbackStoryRecords }: FeaturedS
 
   return (
     <section id="stories" className="space-y-6">
-      <SectionHeading
-        eyebrow=""
-        title="Câu chuyện mới nhất"
-        description=""
-      />
+      <SectionHeading title="Câu chuyện mới nhất" />
 
       {error && stories.length > 0 ? (
         <div className="rounded-2xl border border-red-200 bg-red-50 p-5 text-sm dark:border-red-900 dark:bg-red-950/30">

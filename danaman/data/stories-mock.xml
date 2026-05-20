@@ -6,37 +6,35 @@
   - Image / Gallery.ImageUrl: đường dẫn static trong public (vd. /stories/slug.jpg).
 -->
 <Stories>
-  <Story id="mock-story-1" active="false">
+  <Story id="mock-story-1" active="true">
     <Image>/stories/nguoi-tre-giu-gin-bo-bien-da-nang.jpg</Image>
     <Gallery>
       <ImageUrl>/stories/nguoi-tre-giu-gin-bo-bien-da-nang-1.jpg</ImageUrl>
       <ImageUrl>/stories/nguoi-tre-giu-gin-bo-bien-da-nang-2.jpg</ImageUrl>
       <ImageUrl>/stories/nguoi-tre-giu-gin-bo-bien-da-nang-3.jpg</ImageUrl>
     </Gallery>
-    <Title>Người trẻ giữ gìn bờ biển Đà Nẵng</Title>
-    <Description>Nhóm tình nguyện viên tổ chức đốn rác và làm lan tỏa nhận thức bảo vệ môi trường biển.</Description>
+    <Title>Ra khơi cùng ngư dân</Title>
+    <Description>Ngư dân biển đà nẵng cùng nhau thu gom rác và phân loại tại bãi biển.</Description>
     <Content>
-      <Paragraph>Mỗi cuối tuần, một nhóm bạn trẻ tại Đà Nẵng lại cùng nhau thu gom rác và phân loại tại bãi biển. Hành động nhỏ nhưng đã tạo ra sự thay đổi rõ ràng trong nhận thức của người dân địa phương.</Paragraph>
-      <Paragraph>Không chỉ dọn rác, họ còn tổ chức workshop nhỏ cho học sinh và khách du lịch để chia sẻ cách bảo vệ hệ sinh thái biển. Các hoạt động này giúp kết nối nhiều nhóm cộng đồng khác nhau cùng chung mục tiêu.</Paragraph>
-      <Paragraph>Trong 6 thang, nhom da mo rong du an den ba bai bien lon va xay dung mang luoi tinh nguyen vien thuong xuyen.</Paragraph>
+      <Paragraph>Ngư dân biển đà nẵng cùng nhau thu gom rác và phân loại tại bãi biển.</Paragraph>
+      <Paragraph>Ngư dân biển đà nẵng cùng nhau thu gom rác và phân loại tại bãi biển.</Paragraph>
     </Content>
-    <Quote>Khi mọi người cùng hành động một chút, bờ biển sẽ thay đổi rất nhanh.</Quote>
-    <Author>Minh Anh</Author>
+    <Author>Ngư dân</Author>
     <AuthorAvatar>https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&amp;fit=crop&amp;w=200&amp;q=80</AuthorAvatar>
     <PublishedAt>20/05/2024</PublishedAt>
     <Location>Da Nang</Location>
     <Tags>
-      <Tag>Moi truong</Tag>
-      <Tag>Cong dong</Tag>
-      <Tag>Tinh nguyen</Tag>
+      <Tag>Bảo vệ môi trường</Tag>
+      <Tag>Cộng đồng</Tag>
+      <Tag>Ngư dân biển</Tag>
     </Tags>
-    <ConnectionGroup>Nhom Ban Tre Vi Bien Xanh</ConnectionGroup>
+    <ConnectionGroup>Ngư dân biển đà nẵng</ConnectionGroup>
     <ReadTime>5 min read</ReadTime>
-    <Category>Cong dong</Category>
+    <Category>Cộng đồng</Category>
     <Experience>
-      <DurationLabel>5 tiếng</DurationLabel>
+      <DurationLabel>4-6 tiếng</DurationLabel>
       <GroupSize>Nhóm nhỏ</GroupSize>
-      <PricePerPerson>350000</PricePerPerson>
+      <PricePerPerson>530000</PricePerPerson>
       <Rating>4.6</Rating>
       <ReviewCount>60</ReviewCount>
       <TimeRange>11:00 - 20:00</TimeRange>

@@ -14,6 +14,11 @@ function ensureArray<T>(value: T | T[] | undefined): T[] {
   return Array.isArray(value) ? value : [value];
 }
 
+function parsePricePerPerson(raw: unknown): number {
+  const digits = String(raw ?? "").replace(/[^\d]/g, "");
+  return digits ? Number(digits) : 0;
+}
+
 function parseActive(raw: string | undefined): boolean {
   if (raw === undefined || raw === "") return true;
   const v = String(raw).trim().toLowerCase();
@@ -47,7 +52,7 @@ function buildExperienceInner(
   return {
     durationLabel: String(raw.DurationLabel ?? "").trim() || "3 - 4 tiếng",
     groupSize,
-    pricePerPerson: Number(raw.PricePerPerson ?? 0),
+    pricePerPerson: parsePricePerPerson(raw.PricePerPerson),
     rating: Number(raw.Rating ?? 0),
     reviewCount: Number(raw.ReviewCount ?? 0),
     timeRange: String(raw.TimeRange ?? "").trim(),

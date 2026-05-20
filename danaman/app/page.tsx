@@ -15,12 +15,14 @@ export default async function HomePage() {
   ]);
 
   return (
-    <div className="space-y-10 pb-2">
+    <div className="pb-2">
       <HeroSection />
-      <div className="space-y-10 px-6 sm:px-10 lg:px-16">
-        <FeaturedStoriesClientSection fallbackStoryRecords={fallbackStoryRecords} />
-        <ExperiencesSection experiences={experiences} />
-        <OpportunitiesSection opportunities={opportunities} />
+      <div className="space-y-10">
+        <div className="space-y-10 px-6 pt-10 sm:px-10 lg:px-16">
+          <FeaturedStoriesClientSection fallbackStoryRecords={fallbackStoryRecords} />
+          <ExperiencesSection experiences={experiences} />
+          <OpportunitiesSection opportunities={opportunities} />
+        </div>
       </div>
     </div>
   );

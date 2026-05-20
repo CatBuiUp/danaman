@@ -141,7 +141,7 @@ export function SiteFooter() {
             </ul>
           </div>
 
-          <div>
+          <div id="ve-danaman">
             <p className="font-semibold text-zinc-900 dark:text-zinc-100">Ve Danaman</p>
             <ul className="mt-2 space-y-1 text-zinc-600 dark:text-zinc-300">
               <li>Giới thiệu</li>
@@ -151,7 +151,7 @@ export function SiteFooter() {
             </ul>
           </div>
 
-          <div>
+          <div id="lien-he">
             <p className="font-semibold text-zinc-900 dark:text-zinc-100">Liên hệ</p>
             <ul className="mt-2 space-y-1 text-zinc-600 dark:text-zinc-300">
               <li>hello@danaman.vn</li>

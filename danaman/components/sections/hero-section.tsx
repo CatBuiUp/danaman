@@ -1,67 +1,62 @@
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-import { footerSocialLinks } from "@/lib/footer-social-links";
+import { joinDanamanHref } from "@/lib/site-nav";
+
+const HERO_GRADIENT =
+  "linear-gradient(90deg, rgba(13,17,7,0.92) 0%, rgba(13,17,7,0.75) 35%, rgba(13,17,7,0.25) 70%, rgba(13,17,7,0.08) 100%)";
+
+const HERO_IMAGE = "/hero/hero_background.png";
+
 export function HeroSection() {
   return (
-    <section className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-hidden">
+    <section className="relative left-1/2 right-1/2 -mx-[50vw] w-screen overflow-hidden bg-[#1F2717]">
       <div
-        className="relative flex min-h-[540px] items-end"
+        className="relative flex min-h-[100dvh] flex-col justify-center md:min-h-[800px]"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=2200&q=80')",
+          backgroundImage: `url('${HERO_IMAGE}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/35" />
-        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black/70 to-transparent" />
+        <div className="absolute inset-0" style={{ background: HERO_GRADIENT }} />
 
-        <div className="relative z-10 mx-auto w-full px-6 pb-10 sm:px-10 lg:px-16">
-          <div className="max-w-3xl space-y-5 text-white">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-200">
-              Danaman Community Platform
+        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pt-28 pb-16 sm:px-10 sm:pt-32 lg:px-16 lg:pb-20">
+          <div className="max-w-2xl space-y-6 lg:max-w-3xl lg:space-y-8">
+            <p className="font-[family-name:var(--font-montserrat)] text-xs font-light uppercase tracking-[0.32em] text-[#D0AE7D] sm:text-sm">
+              DANAMAN
             </p>
-            <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
-              Kết nối con người, câu chuyện và cơ hội tại Đà Nẵng
+
+            <h1 className="space-y-1 font-[family-name:var(--font-playfair)] text-[#EEDBC0]">
+              <span className="block text-[2rem] leading-[1.15] font-normal tracking-tight sm:text-5xl lg:text-[3.25rem] lg:leading-[1.12]">
+                Trải nghiệm Đà Nẵng
+              </span>
+              <span className="block text-[2rem] leading-[1.15] font-normal tracking-tight sm:text-5xl lg:text-[3.25rem] lg:leading-[1.12]">
+                theo cách của
+              </span>
+              <span className="block font-[family-name:var(--font-allura)] text-[2.75rem] leading-none text-[#AAB38A] sm:text-6xl lg:text-[4.5rem]">
+                người bản địa
+              </span>
             </h1>
-            <p className="text-sm text-zinc-100 sm:text-base">
-              Câu chuyện thật - Trải nghiệm thật - Kết nối thật
+
+            <p className="max-w-xl font-[family-name:var(--font-inter)] text-sm leading-relaxed text-[#D7C9B2] sm:text-base">
+              Câu chuyện thật — Trải nghiệm thật — Kết nối thật
             </p>
 
-            <div className="flex flex-wrap gap-3">
-            <Link
-              href="#stories"
-              className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-400"
-            >
-              Khám phá trải nghiệm
-            </Link>
-              <Button
-                href={footerSocialLinks.facebook}
+            <div className="flex flex-wrap gap-4 pt-2">
+              <Link
+                href="#experiences"
+                className="inline-flex items-center justify-center rounded-2xl bg-[#D0AE7D] px-6 py-3 font-[family-name:var(--font-montserrat)] text-sm font-medium text-[#1F2717] transition hover:bg-[#e0c090]"
+              >
+                Khám phá trải nghiệm
+              </Link>
+              <Link
+                href={joinDanamanHref}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-2xl border border-[#D0AE7D] px-6 py-3 font-[family-name:var(--font-montserrat)] text-sm font-medium text-[#EEDBC0] transition hover:bg-[#D0AE7D]/10"
               >
-                Tham gia cộng đồng
-              </Button>
-            </div>
-          </div>
-
-          <div className="mt-8 grid max-w-2xl grid-cols-2 gap-3 text-white sm:grid-cols-4">
-            <div className="rounded-lg border border-white/30 bg-black/35 p-3 backdrop-blur-sm">
-              <p className="text-2xl font-semibold">500+</p>
-              <p className="text-xs text-zinc-200">Câu chuyện</p>
-            </div>
-            <div className="rounded-lg border border-white/30 bg-black/35 p-3 backdrop-blur-sm">
-              <p className="text-2xl font-semibold">3.200+</p>
-              <p className="text-xs text-zinc-200">Thành viên</p>
-            </div>
-            <div className="rounded-lg border border-white/30 bg-black/35 p-3 backdrop-blur-sm">
-              <p className="text-2xl font-semibold">250+</p>
-              <p className="text-xs text-zinc-200">Cơ hội kết nối</p>
-            </div>
-            <div className="rounded-lg border border-white/30 bg-black/35 p-3 backdrop-blur-sm">
-              <p className="text-2xl font-semibold">120+</p>
-              <p className="text-xs text-zinc-200">Sự kiện</p>
+                Tham gia Danaman
+              </Link>
             </div>
           </div>
         </div>

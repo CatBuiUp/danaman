@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { CommunityTestimonialsSection } from "@/components/sections/community-testimonials-section";
 import {
   footerDanamanLinks,
   footerExploreLinks,
@@ -74,7 +75,9 @@ function FooterLinkGroup({ title, links }: { title: string; links: FooterLink[] 
 
 export function SiteFooter() {
   return (
-    <footer className="w-full shrink-0 bg-[#1F2717] text-[#D7C9B2]">
+    <>
+      <CommunityTestimonialsSection />
+      <footer className="w-full shrink-0 bg-[#1F2717] text-[#D7C9B2]">
       <div className={`${siteContentContainerClass} py-14 lg:py-16`}>
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-12">
           <div className="flex gap-5 lg:col-span-4 lg:gap-6">
@@ -131,5 +134,6 @@ export function SiteFooter() {
         </div>
       </div>
     </footer>
+    </>
   );
 }

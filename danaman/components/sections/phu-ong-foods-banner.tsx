@@ -8,7 +8,7 @@ const BANNER_IMAGE = "/bannerPhuOngFoods.png";
 
 export function PhuOngFoodsBanner() {
   return (
-    <section className="bg-[#F7F4EE] pb-20">
+    <section className="bg-[#F7F4EE] pb-10">
       <div className={siteContentContainerClass}>
         <div className="relative min-h-[220px] overflow-hidden rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.08)] sm:min-h-[280px] lg:min-h-[320px]">
           <Image

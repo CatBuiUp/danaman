@@ -126,7 +126,7 @@ export function HomeMainContent({ fallbackStoryRecords }: HomeMainContentProps) 
         </div>
       </ContentSection>
 
-      <ContentSection id="stories" className="pt-10">
+      <ContentSection id="stories" className="pt-10 pb-6">
         <SectionHeading
           title="Câu chuyện Đà Nẵng"
           viewAllHref="#stories"

@@ -8,6 +8,7 @@ import {
   type FooterLink,
 } from "@/lib/footer-nav";
 import { siteContentContainerClass } from "@/lib/site-layout";
+import { joinDanamanHref } from "@/lib/site-nav";
 
 const FOOTER_QUOTE =
   "Đến Đà Nẵng không chỉ để ngắm nhìn, mà để sống cùng nhịp thở của người bản địa. Mỗi con người là một câu chuyện, mỗi nụ cười là một bản sắc.";
@@ -109,12 +110,14 @@ export function SiteFooter() {
                 placeholder="Email của bạn..."
                 className="min-w-0 flex-1 rounded-lg border border-[#D0AE7D]/25 bg-[#25301C] px-4 py-3 font-[family-name:var(--font-inter)] text-sm text-[#EEDBC0] placeholder:text-[#5F6557] focus:border-[#D0AE7D]/60 focus:outline-none"
               />
-              <button
-                type="button"
-                className="shrink-0 rounded-2xl bg-[#D0AE7D] px-6 py-3 font-[family-name:var(--font-inter)] text-sm font-semibold text-[#1F2717] transition hover:bg-[#e0c090]"
+              <Link
+                href={joinDanamanHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex shrink-0 items-center justify-center rounded-2xl bg-[#D0AE7D] px-6 py-3 font-[family-name:var(--font-inter)] text-sm font-semibold text-[#1F2717] transition hover:bg-[#e0c090]"
               >
                 Theo dõi
-              </button>
+              </Link>
             </div>
           </div>
         </div>

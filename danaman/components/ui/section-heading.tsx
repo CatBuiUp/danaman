@@ -4,11 +4,14 @@ type SectionHeadingProps = {
   title: string;
   viewAllHref?: string;
   viewAllLabel?: string;
+  className?: string;
 };
 
-export function SectionHeading({ title, viewAllHref, viewAllLabel }: SectionHeadingProps) {
+export function SectionHeading({ title, viewAllHref, viewAllLabel, className = "" }: SectionHeadingProps) {
   return (
-    <div className="mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between">
+    <div
+      className={`mb-8 flex flex-col gap-4 sm:mb-10 sm:flex-row sm:items-end sm:justify-between ${className}`.trim()}
+    >
       <h2 className="font-[family-name:var(--font-playfair)] text-[2rem] font-medium leading-[1.2] tracking-[-0.5px] text-[#1F2717] sm:text-[2.25rem]">
         {title}
       </h2>

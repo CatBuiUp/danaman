@@ -92,11 +92,12 @@ export function HomeMainContent({ fallbackStoryRecords }: HomeMainContentProps) 
 
   return (
     <div className="bg-[#F7F4EE]">
-      <ContentSection id="experiences" className="pb-10">
+      <ContentSection id="experiences" className="pt-10 pb-5">
         <SectionHeading
           title="Trải nghiệm nổi bật"
           viewAllHref="#stories"
           viewAllLabel="Xem tất cả trải nghiệm →"
+          className="!mb-4 sm:!mb-5"
         />
 
         {error && stories.length === 0 ? (
@@ -126,11 +127,12 @@ export function HomeMainContent({ fallbackStoryRecords }: HomeMainContentProps) 
         </div>
       </ContentSection>
 
-      <ContentSection id="stories" className="pt-10 pb-6">
+      <ContentSection id="stories" className="pt-5 pb-6">
         <SectionHeading
           title="Câu chuyện Đà Nẵng"
           viewAllHref="#stories"
           viewAllLabel="Xem tất cả câu chuyện →"
+          className="!mb-4 sm:!mb-5"
         />
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

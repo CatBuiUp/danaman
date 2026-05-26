@@ -77,7 +77,7 @@ function CarouselArrow({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#D0AE7D]/50 bg-[#F7F4EE] text-[#1F2717] transition hover:border-[#D0AE7D] hover:bg-white disabled:cursor-not-allowed disabled:opacity-35 sm:h-11 sm:w-11"
+      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#D0AE7D]/40 bg-white text-[#1F2717] shadow-[0_2px_8px_rgba(0,0,0,0.08)] transition hover:border-[#D0AE7D] hover:bg-[#F7F4EE] disabled:cursor-not-allowed disabled:opacity-35 sm:h-10 sm:w-10"
     >
       <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
         {direction === "prev" ? (
@@ -180,9 +180,9 @@ export function CommunityTestimonialsSection() {
             </h2>
           </div>
 
-          {/* Carousel bình luận + mũi tên */}
-          <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-4">
-            <div className="min-w-0 flex-1 overflow-hidden">
+          {/* Carousel bình luận — mũi tên nằm trong vùng card (cạnh phải) */}
+          <div className="relative min-w-0 flex-1">
+            <div className="overflow-hidden pr-11 sm:pr-12">
               <div
                 className="flex transition-transform duration-300 ease-out"
                 style={{
@@ -202,7 +202,7 @@ export function CommunityTestimonialsSection() {
               </div>
             </div>
 
-            <div className="flex shrink-0 flex-col gap-2 sm:gap-3">
+            <div className="absolute top-1/2 right-2 z-10 flex -translate-y-1/2 flex-col gap-2 sm:right-2.5 sm:gap-2.5">
               <CarouselArrow direction="prev" onClick={handlePrev} disabled={!canPrev} />
               <CarouselArrow direction="next" onClick={handleNext} disabled={!canNext} />
             </div>

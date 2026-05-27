@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { ContactPopup } from "@/components/layout/contact-popup";
 import { siteContentContainerClass } from "@/lib/site-layout";
 import { joinDanamanHref, siteNavLinks } from "@/lib/site-nav";
 
@@ -14,6 +15,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
+  const [isContactPopupOpen, setIsContactPopupOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > HEADER_SCROLL_THRESHOLD);
@@ -52,6 +54,19 @@ export function SiteHeader() {
           aria-label="Main navigation"
         >
           {siteNavLinks.map(({ label, href }) => {
+            if (label === "Liên hệ") {
+              return (
+                <button
+                  key={label}
+                  type="button"
+                  onClick={() => setIsContactPopupOpen(true)}
+                  className="font-[family-name:var(--font-montserrat)] text-[11px] font-light uppercase tracking-[0.2em] text-[#EEDBC0] transition hover:text-[#D0AE7D]"
+                >
+                  {label}
+                </button>
+              );
+            }
+
             const isExternal = href.startsWith("http");
             return (
               <Link
@@ -76,6 +91,7 @@ export function SiteHeader() {
           Tham gia Danaman
         </Link>
       </div>
+      <ContactPopup isOpen={isContactPopupOpen} onClose={() => setIsContactPopupOpen(false)} />
     </header>
   );
 }

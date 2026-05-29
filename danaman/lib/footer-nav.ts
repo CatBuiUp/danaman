@@ -4,6 +4,7 @@ export type FooterLink = {
   label: string;
   href: string;
   external?: boolean;
+  opensContactPopup?: boolean;
 };
 
 export const footerExploreLinks: FooterLink[] = [
@@ -16,7 +17,7 @@ export const footerExploreLinks: FooterLink[] = [
 export const footerDanamanLinks: FooterLink[] = [
   { label: "Về Danaman", href: "#ve-danaman" },
   { label: "Hợp tác", href: "#lien-he" },
-  { label: "Liên hệ", href: "#lien-he" },
+  { label: "Liên hệ", href: "#lien-he", opensContactPopup: true },
   { label: "Câu hỏi thường gặp", href: "#lien-he" },
 ];
 

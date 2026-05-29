@@ -1,11 +1,11 @@
 import Link from "next/link";
 
+import { FooterLinkGroup } from "@/components/layout/footer-link-group";
 import { CommunityTestimonialsSection } from "@/components/sections/community-testimonials-section";
 import {
   footerDanamanLinks,
   footerExploreLinks,
   footerPhuOngLinks,
-  type FooterLink,
 } from "@/lib/footer-nav";
 import { siteContentContainerClass } from "@/lib/site-layout";
 import { joinDanamanHref } from "@/lib/site-nav";
@@ -47,30 +47,6 @@ function FooterBoatIllustration() {
         strokeLinecap="round"
       />
     </svg>
-  );
-}
-
-function FooterLinkGroup({ title, links }: { title: string; links: FooterLink[] }) {
-  return (
-    <div>
-      <p className="font-[family-name:var(--font-montserrat)] text-[11px] font-light uppercase tracking-[0.22em] text-[#D0AE7D]">
-        {title}
-      </p>
-      <ul className="mt-4 space-y-2.5">
-        {links.map(({ label, href, external }) => (
-          <li key={label}>
-            <Link
-              href={href}
-              target={external ? "_blank" : undefined}
-              rel={external ? "noopener noreferrer" : undefined}
-              className="font-[family-name:var(--font-inter)] text-sm leading-[1.6] text-[#D7C9B2] transition hover:text-[#EEDBC0]"
-            >
-              {label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }
 

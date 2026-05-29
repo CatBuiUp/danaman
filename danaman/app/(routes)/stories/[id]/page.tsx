@@ -2,8 +2,7 @@ import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { ActionButtons, ImageGallery, StoryContent } from "@/components/story-detail";
-import { listResources } from "@/lib/server/controllers/resource-controller";
-import { isXmlMockStoryInactive } from "@/lib/stories-xml";
+import { isXmlMockStoryInactive, loadActiveStoryRecords } from "@/lib/stories-xml";
 import {
   mapStoryToFeaturedExperience,
   resolveFeaturedListIndex,
@@ -30,8 +29,8 @@ async function resolvePublicBaseUrl(): Promise<string> {
       h.get("x-forwarded-proto") ?? (host.startsWith("localhost") || host.startsWith("127.") ? "http" : "https");
     return `${proto}://${host}`;
   }
-  if (process.env.NEXTAUTH_URL) {
-    return process.env.NEXTAUTH_URL.replace(/\/$/, "");
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
   }
   if (process.env.VERCEL_URL) {
     return `https://${process.env.VERCEL_URL.replace(/\/$/, "")}`;
@@ -65,13 +64,9 @@ export default async function StoryDetailPage({ params }: PageProps) {
   const gallery = story.gallery?.length ? story.gallery : [story.image];
   const paragraphs = story.content?.length ? story.content : [story.description];
 
-  let listStories: { id: string }[] = [];
-  try {
-    const raw = (await listResources("stories")) as Story[];
-    listStories = raw.filter((s) => !isXmlMockStoryInactive(s.id));
-  } catch {
-    listStories = [];
-  }
+  const listStories = loadActiveStoryRecords()
+    .map((record) => record.story)
+    .filter((s) => !isXmlMockStoryInactive(s.id));
   const featuredIndex = resolveFeaturedListIndex(id, listStories);
   const experience = story.experience ?? mapStoryToFeaturedExperience(story, featuredIndex);
 

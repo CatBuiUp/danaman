@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Allura, Inter, Montserrat, Playfair_Display } from "next/font/google";
+import { ContactPopupProvider } from "@/components/layout/contact-popup-provider";
 import { SiteFooter, SiteHeader } from "@/components/layout";
 import "./globals.css";
 
@@ -42,9 +43,11 @@ export default function RootLayout({
       className={`${montserrat.variable} ${playfair.variable} ${allura.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <SiteHeader />
-        <main className="w-full min-w-0 flex-1">{children}</main>
-        <SiteFooter />
+        <ContactPopupProvider>
+          <SiteHeader />
+          <main className="w-full min-w-0 flex-1">{children}</main>
+          <SiteFooter />
+        </ContactPopupProvider>
       </body>
     </html>
   );

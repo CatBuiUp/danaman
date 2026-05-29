@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { ContactPopup } from "@/components/layout/contact-popup";
+import { useContactPopup } from "@/components/layout/contact-popup-provider";
 import { siteContentContainerClass } from "@/lib/site-layout";
 import { joinDanamanHref, siteNavLinks } from "@/lib/site-nav";
 
@@ -15,7 +15,7 @@ export function SiteHeader() {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
-  const [isContactPopupOpen, setIsContactPopupOpen] = useState(false);
+  const { openContactPopup } = useContactPopup();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > HEADER_SCROLL_THRESHOLD);
@@ -59,7 +59,7 @@ export function SiteHeader() {
                 <button
                   key={label}
                   type="button"
-                  onClick={() => setIsContactPopupOpen(true)}
+                  onClick={openContactPopup}
                   className="font-[family-name:var(--font-montserrat)] text-[11px] font-light uppercase tracking-[0.2em] text-[#EEDBC0] transition hover:text-[#D0AE7D]"
                 >
                   {label}
@@ -82,16 +82,24 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <Link
-          href={joinDanamanHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="ml-auto shrink-0 rounded-2xl border border-[#D0AE7D] px-4 py-2 font-[family-name:var(--font-montserrat)] text-xs font-medium tracking-wide text-[#EEDBC0] transition hover:bg-[#D0AE7D]/10 lg:ml-0"
-        >
-          Tham gia Danaman
-        </Link>
+        <div className="ml-auto flex shrink-0 items-center gap-3 sm:gap-4 lg:ml-0">
+          <button
+            type="button"
+            onClick={openContactPopup}
+            className="font-[family-name:var(--font-montserrat)] text-[10px] font-light uppercase tracking-[0.18em] text-[#EEDBC0] transition hover:text-[#D0AE7D] sm:text-[11px] sm:tracking-[0.2em] lg:hidden"
+          >
+            Liên hệ
+          </button>
+          <Link
+            href={joinDanamanHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-2xl border border-[#D0AE7D] px-3 py-1.5 font-[family-name:var(--font-montserrat)] text-[11px] font-medium tracking-wide text-[#EEDBC0] transition hover:bg-[#D0AE7D]/10 sm:px-4 sm:py-2 sm:text-xs"
+          >
+            Tham gia Danaman
+          </Link>
+        </div>
       </div>
-      <ContactPopup isOpen={isContactPopupOpen} onClose={() => setIsContactPopupOpen(false)} />
     </header>
   );
 }

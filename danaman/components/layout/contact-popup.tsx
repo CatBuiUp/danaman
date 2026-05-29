@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { createPortal } from "react-dom";
 
 import { footerSocialLinks } from "@/lib/footer-social-links";
@@ -104,6 +104,77 @@ function BenefitIcon({ icon }: { icon: BenefitIconName }) {
 }
 
 export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formFeedback, setFormFeedback] = useState<{ type: "success" | "error"; text: string } | null>(
+    null,
+  );
+
+  useEffect(() => {
+    if (!isOpen) {
+      setFormFeedback(null);
+      return;
+    }
+  }, [isOpen]);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const trimmedName = name.trim();
+    const trimmedPhone = phone.trim();
+    const trimmedMessage = message.trim();
+
+    if (!trimmedName || !trimmedPhone || !trimmedMessage) {
+      setFormFeedback({
+        type: "error",
+        text: "Vui lòng điền đầy đủ họ tên, số điện thoại và nội dung.",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setFormFeedback(null);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: trimmedName,
+          phone: trimmedPhone,
+          message: trimmedMessage,
+        }),
+      });
+
+      const result = (await response.json()) as { success?: boolean; message?: string };
+
+      if (!response.ok || !result.success) {
+        setFormFeedback({
+          type: "error",
+          text: result.message ?? "Không gửi được thông tin. Vui lòng thử lại sau.",
+        });
+        return;
+      }
+
+      setFormFeedback({
+        type: "success",
+        text: result.message ?? "Đã gửi thông tin. Danaman sẽ phản hồi bạn sớm.",
+      });
+      setName("");
+      setPhone("");
+      setMessage("");
+    } catch {
+      setFormFeedback({
+        type: "error",
+        text: "Không gửi được thông tin. Vui lòng thử lại sau.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -149,6 +220,7 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                 src="/ket-noi-danaman.png"
                 alt="Kết nối cùng Danaman"
                 fill
+                sizes="(max-width: 768px) 100vw, 380px"
                 className="object-contain object-center"
                 priority
               />
@@ -184,7 +256,7 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
               <span className="h-px flex-1 bg-[#D0AE7D]/35" />
             </div>
 
-            <form className="mt-4 space-y-3">
+            <form className="mt-4 space-y-3" onSubmit={handleSubmit} noValidate>
               <p className="flex items-center gap-2 font-[family-name:var(--font-cormorant)] text-[1.5xl] font-semibold text-[#F7F0E2]">
                 <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0 text-[#D0AE7D]" fill="none" aria-hidden>
                   <rect x="3" y="6" width="18" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.7" />
@@ -200,8 +272,12 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                 </svg>
                 <input
                   type="text"
+                  name="name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
                   placeholder="Họ và tên của bạn"
-                  className="w-full bg-transparent font-[family-name:var(--font-inter)] text-[16px] text-[#D7C9B2] placeholder:text-[#8A907E] focus:outline-none"
+                  disabled={isSubmitting}
+                  className="w-full bg-transparent font-[family-name:var(--font-inter)] text-[16px] text-[#D7C9B2] placeholder:text-[#8A907E] focus:outline-none disabled:opacity-60"
                 />
               </label>
 
@@ -211,8 +287,12 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                 </svg>
                 <input
                   type="tel"
+                  name="phone"
+                  value={phone}
+                  onChange={(event) => setPhone(event.target.value)}
                   placeholder="Số điện thoại"
-                  className="w-full bg-transparent font-[family-name:var(--font-inter)] text-[16px] text-[#D7C9B2] placeholder:text-[#8A907E] focus:outline-none"
+                  disabled={isSubmitting}
+                  className="w-full bg-transparent font-[family-name:var(--font-inter)] text-[16px] text-[#D7C9B2] placeholder:text-[#8A907E] focus:outline-none disabled:opacity-60"
                 />
               </label>
 
@@ -222,18 +302,37 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                   <path d="M7.5 9H16.5M7.5 13H13.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
                 </svg>
                 <textarea
+                  name="message"
+                  value={message}
+                  onChange={(event) => setMessage(event.target.value)}
                   placeholder="Bạn muốn trải nghiệm gì? (vd: Bữa cơm làng chài, làm nước mắm...)"
                   rows={3}
-                  className="w-full resize-none bg-transparent font-[family-name:var(--font-inter)] text-[16px] leading-snug text-[#D7C9B2] placeholder:text-[#8A907E] focus:outline-none"
+                  disabled={isSubmitting}
+                  className="w-full resize-none bg-transparent font-[family-name:var(--font-inter)] text-[16px] leading-snug text-[#D7C9B2] placeholder:text-[#8A907E] focus:outline-none disabled:opacity-60"
                 />
               </label>
 
               <button
                 type="submit"
-                className="mt-2 w-full rounded-xl bg-[#D0AE7D] px-4 py-3 font-[family-name:var(--font-montserrat)] text-[16px] font-bold uppercase tracking-wide text-[#1F2717] transition hover:bg-[#e0c090]"
+                disabled={isSubmitting}
+                className="mt-2 w-full rounded-xl bg-[#D0AE7D] px-4 py-3 font-[family-name:var(--font-montserrat)] text-[16px] font-bold uppercase tracking-wide text-[#1F2717] transition hover:bg-[#e0c090] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Gửi thông tin
+                {isSubmitting ? "Đang gửi..." : "Gửi thông tin"}
               </button>
+
+              {formFeedback ? (
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className={`rounded-xl border px-4 py-3 text-center font-[family-name:var(--font-inter)] text-sm ${
+                    formFeedback.type === "success"
+                      ? "border-[#6B9B63]/50 bg-[#2A3D28] text-[#B8E0B0]"
+                      : "border-[#9B6363]/50 bg-[#3D2828] text-[#F0B8B8]"
+                  }`}
+                >
+                  {formFeedback.text}
+                </div>
+              ) : null}
 
               <p className="flex items-center gap-2 font-[family-name:var(--font-inter)] text-[16px] text-[#E6D7BE]">
                 <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-[#D0AE7D]" fill="none" aria-hidden>
@@ -251,6 +350,7 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                 src="/cau-chuyen-da-nang.png"
                 alt="Danaman kết nối cùng du khách"
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1152px) 58vw, 672px"
                 className="object-cover"
               />
             </div>
@@ -277,6 +377,7 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                     src="/cau-chuyen-moi-nguoi.png"
                     alt="Mỗi con người là một câu chuyện"
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1152px) 58vw, 672px"
                     className="object-cover"
                   />
                 </div>

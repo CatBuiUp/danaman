@@ -12,6 +12,9 @@ type ContactPopupProps = {
   onClose: () => void;
 };
 
+const MAX_NAME_LENGTH = 50;
+const MAX_MESSAGE_LENGTH = 300;
+
 const contactBenefits = [
   {
     icon: "leaf",
@@ -36,6 +39,18 @@ const contactBenefits = [
 ] as const;
 
 type BenefitIconName = (typeof contactBenefits)[number]["icon"];
+
+function getPhoneDigits(value: string) {
+  return value.replace(/\D/g, "").slice(0, 10);
+}
+
+function formatPhoneDisplay(value: string) {
+  const digits = getPhoneDigits(value);
+
+  if (digits.length <= 4) return digits;
+  if (digits.length <= 7) return `${digits.slice(0, 4)} ${digits.slice(4)}`;
+  return `${digits.slice(0, 4)} ${digits.slice(4, 7)} ${digits.slice(7)}`;
+}
 
 function BenefitIcon({ icon }: { icon: BenefitIconName }) {
   if (icon === "leaf") {
@@ -123,13 +138,32 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
     event.preventDefault();
 
     const trimmedName = name.trim();
-    const trimmedPhone = phone.trim();
+    const phoneDigits = getPhoneDigits(phone);
+    const formattedPhone = formatPhoneDisplay(phoneDigits);
     const trimmedMessage = message.trim();
 
-    if (!trimmedName || !trimmedPhone || !trimmedMessage) {
+    if (!trimmedName || phoneDigits.length !== 10 || !trimmedMessage) {
       setFormFeedback({
         type: "error",
-        text: "Vui lòng điền đầy đủ họ tên, số điện thoại và nội dung.",
+        text: "Vui lòng điền đầy đủ họ tên, số điện thoại (10 chữ số) và nội dung.",
+      });
+      return;
+    }
+
+    if (trimmedName.length > MAX_NAME_LENGTH || trimmedMessage.length > MAX_MESSAGE_LENGTH) {
+      setFormFeedback({
+        type: "error",
+        text: `Họ tên tối đa ${MAX_NAME_LENGTH} ký tự, nội dung tối đa ${MAX_MESSAGE_LENGTH} ký tự.`,
+      });
+      return;
+    }
+
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
+    if (!accessKey) {
+      setFormFeedback({
+        type: "error",
+        text: "Form liên hệ chưa được cấu hình. Vui lòng liên hệ quản trị viên.",
       });
       return;
     }
@@ -138,12 +172,18 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
     setFormFeedback(null);
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({
+          access_key: accessKey,
+          subject: `[Danaman] Liên hệ mới từ ${trimmedName}`,
+          from_name: "Danaman",
           name: trimmedName,
-          phone: trimmedPhone,
+          phone: formattedPhone,
           message: trimmedMessage,
         }),
       });
@@ -160,7 +200,7 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
 
       setFormFeedback({
         type: "success",
-        text: result.message ?? "Đã gửi thông tin. Danaman sẽ phản hồi bạn sớm.",
+        text: "Đã gửi thông tin. Danaman sẽ phản hồi bạn sớm.",
       });
       setName("");
       setPhone("");
@@ -273,6 +313,7 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                 <input
                   type="text"
                   name="name"
+                  maxLength={MAX_NAME_LENGTH}
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                   placeholder="Họ và tên của bạn"
@@ -288,9 +329,12 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                 <input
                   type="tel"
                   name="phone"
+                  inputMode="numeric"
+                  autoComplete="tel"
+                  maxLength={12}
                   value={phone}
-                  onChange={(event) => setPhone(event.target.value)}
-                  placeholder="Số điện thoại"
+                  onChange={(event) => setPhone(formatPhoneDisplay(event.target.value))}
+                  placeholder="0905 324 235"
                   disabled={isSubmitting}
                   className="w-full bg-transparent font-[family-name:var(--font-inter)] text-[16px] text-[#D7C9B2] placeholder:text-[#8A907E] focus:outline-none disabled:opacity-60"
                 />
@@ -303,6 +347,7 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                 </svg>
                 <textarea
                   name="message"
+                  maxLength={MAX_MESSAGE_LENGTH}
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
                   placeholder="Bạn muốn trải nghiệm gì? (vd: Bữa cơm làng chài, làm nước mắm...)"

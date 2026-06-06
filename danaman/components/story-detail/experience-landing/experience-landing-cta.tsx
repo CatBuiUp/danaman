@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 import { footerSocialLinks } from "@/lib/footer-social-links";
 import { formatPriceVnd } from "@/lib/story-card-mappers";
@@ -54,19 +56,73 @@ export function ExperienceLandingStickyBar({
   zaloHref: string;
   messengerHref: string;
 }) {
-  return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#D0AE7D]/20 bg-[#1F2717]/95 px-4 py-3 backdrop-blur-sm lg:hidden">
-      <div className="mx-auto flex max-w-6xl items-center gap-3">
-        <div className="min-w-0 shrink-0">
-          <p className="font-[family-name:var(--font-inter)] text-[10px] text-[#D7C9B2]">Từ</p>
-          <p className="font-[family-name:var(--font-inter)] text-base font-bold text-[#D0AE7D]">
-            {formatPriceVnd(priceFrom)}
-            <span className="text-xs font-normal text-[#EEDBC0]/90"> / người</span>
-          </p>
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  if (isCollapsed) {
+    return (
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#D0AE7D]/20 bg-[#1F2717]/95 px-4 py-2.5 backdrop-blur-sm lg:hidden">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3">
+          <div className="min-w-0">
+            <p className="font-[family-name:var(--font-inter)] text-[10px] text-[#D7C9B2]">Từ</p>
+            <p className="font-[family-name:var(--font-inter)] text-sm font-bold text-[#D0AE7D]">
+              {formatPriceVnd(priceFrom)}
+              <span className="text-xs font-normal text-[#EEDBC0]/90"> / người</span>
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setIsCollapsed(false)}
+            aria-label="Hiện thanh đặt chỗ"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#D0AE7D]/30 text-[#EEDBC0] transition hover:border-[#D0AE7D] hover:text-[#D0AE7D]"
+          >
+            <ChevronUpIcon />
+          </button>
         </div>
-        <ExperienceLandingCtaButtons zaloHref={zaloHref} messengerHref={messengerHref} compact />
+      </div>
+    );
+  }
+
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[#D0AE7D]/20 bg-[#1F2717]/95 px-4 pb-3 pt-1 backdrop-blur-sm lg:hidden">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex justify-center pb-1">
+          <button
+            type="button"
+            onClick={() => setIsCollapsed(true)}
+            aria-label="Ẩn thanh đặt chỗ"
+            className="flex h-7 w-10 items-center justify-center rounded-full text-[#D7C9B2] transition hover:bg-white/10 hover:text-[#EEDBC0]"
+          >
+            <ChevronDownIcon />
+          </button>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="min-w-0 shrink-0">
+            <p className="font-[family-name:var(--font-inter)] text-[10px] text-[#D7C9B2]">Từ</p>
+            <p className="font-[family-name:var(--font-inter)] text-base font-bold text-[#D0AE7D]">
+              {formatPriceVnd(priceFrom)}
+              <span className="text-xs font-normal text-[#EEDBC0]/90"> / người</span>
+            </p>
+          </div>
+          <ExperienceLandingCtaButtons zaloHref={zaloHref} messengerHref={messengerHref} compact />
+        </div>
       </div>
     </div>
+  );
+}
+
+function ChevronDownIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden>
+      <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ChevronUpIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden>
+      <path d="M18 15l-6-6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
 

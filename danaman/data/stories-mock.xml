@@ -148,7 +148,7 @@
     </Tags>
     <ConnectionGroup>Danaman Lang Nghe</ConnectionGroup>
     <ReadTime>3 - 4 tiếng</ReadTime>
-    <Category>Trai nghiem</Category>
+    <Category>Trải nghiệm</Category>
     <Experience>
       <DurationLabel>3 - 4 tiếng</DurationLabel>
       <GroupSize>Nhóm lớn</GroupSize>
@@ -204,7 +204,7 @@
     </Tags>
     <ConnectionGroup>Danaman Food Walk</ConnectionGroup>
     <ReadTime>3 - 4 tiếng</ReadTime>
-    <Category>Trai nghiem</Category>
+    <Category>Trải nghiệm</Category>
     <Experience>
       <DurationLabel>3 - 4 tiếng</DurationLabel>
       <GroupSize>Nhóm vừa</GroupSize>
@@ -365,7 +365,7 @@
     <Tags>
       <Tag>Du lich</Tag>
       <Tag>Lang nghe</Tag>
-      <Tag>Trai nghiem</Tag>
+      <Tag>Trải nghiệm</Tag>
     </Tags>
     <ConnectionGroup>Danaman Local Guide</ConnectionGroup>
     <ReadTime>4 min read</ReadTime>

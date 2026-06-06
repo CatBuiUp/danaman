@@ -4,6 +4,7 @@ import path from "path";
 import { XMLParser } from "fast-xml-parser";
 
 import type { StoryMockRecord } from "@/lib/story-mock-record";
+import type { StoryUiType } from "@/lib/story-ui-type";
 import type { GroupSize, StoryExperienceUi } from "@/lib/story-experience-ui";
 import type { Story } from "@/types";
 
@@ -72,6 +73,12 @@ function buildExperienceInner(
   };
 }
 
+function parseUiType(raw: unknown): StoryUiType | undefined {
+  const value = String(raw ?? "").trim();
+  if (value === "experience-landing" || value === "default") return value;
+  return undefined;
+}
+
 function parseStory(el: Record<string, unknown>): StoryMockRecord {
   const id = String(el["@_id"] ?? "").trim();
   const active = parseActive(el["@_active"] as string | undefined);
@@ -104,6 +111,7 @@ function parseStory(el: Record<string, unknown>): StoryMockRecord {
     connectionGroup: el.ConnectionGroup !== undefined ? String(el.ConnectionGroup).trim() : undefined,
     readTime: String(el.ReadTime ?? "").trim(),
     category: String(el.Category ?? "").trim(),
+    uiType: parseUiType(el.UiType),
   };
 
   const expRaw = el.Experience as Record<string, unknown> | undefined;

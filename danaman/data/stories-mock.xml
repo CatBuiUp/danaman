@@ -7,36 +7,42 @@
 -->
 <Stories>
   <Story id="mock-story-1" active="true">
-    <Image>/stories/nguoi-tre-giu-gin-bo-bien-da-nang.jpg</Image>
+    <Image>/landing/chu-muoi-mam.png</Image>
     <Gallery>
-      <ImageUrl>/stories/nguoi-tre-giu-gin-bo-bien-da-nang-1.jpg</ImageUrl>
-      <ImageUrl>/stories/nguoi-tre-giu-gin-bo-bien-da-nang-2.jpg</ImageUrl>
-      <ImageUrl>/stories/nguoi-tre-giu-gin-bo-bien-da-nang-3.jpg</ImageUrl>
+      <ImageUrl>/landing/chu-muoi-ngoi.png</ImageUrl>
+      <ImageUrl>/landing/trai-nghiem/1.jpg</ImageUrl>
+      <ImageUrl>/landing/trai-nghiem/2.png</ImageUrl>
+      <ImageUrl>/landing/trai-nghiem/3.jpg</ImageUrl>
+      <ImageUrl>/landing/trai-nghiem/4.png</ImageUrl>
+      <ImageUrl>/landing/trai-nghiem/5.png</ImageUrl>
+      <ImageUrl>/landing/trai-nghiem/6.png</ImageUrl>
+      <ImageUrl>/landing/trai-nghiem/7.png</ImageUrl>
     </Gallery>
-    <Title>Ra khơi cùng ngư dân</Title>
-    <Description>Ngư dân biển đà nẵng cùng nhau thu gom rác và phân loại tại bãi biển.</Description>
+    <Title>Giữ mùi biển</Title>
+    <Description>Bạn sẽ được học cách làm mắm truyền thống cùng chú Mười.</Description>
     <Content>
-      <Paragraph>Ngư dân biển đà nẵng cùng nhau thu gom rác và phân loại tại bãi biển.</Paragraph>
-      <Paragraph>Ngư dân biển đà nẵng cùng nhau thu gom rác và phân loại tại bãi biển.</Paragraph>
+      <Paragraph>Chú Mười là một người làm mắm truyền thống của Đà Nẵng.</Paragraph>
+      <Paragraph>Bạn sẽ được học cách làm mắm truyền thống cùng chú Mười.</Paragraph>
     </Content>
     <Author>Ngư dân</Author>
     <AuthorAvatar>https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&amp;fit=crop&amp;w=200&amp;q=80</AuthorAvatar>
     <PublishedAt>20/05/2024</PublishedAt>
-    <Location>Da Nang</Location>
+    <Location>Sơn Trà, Đà Nẵng</Location>
     <Tags>
       <Tag>Bảo vệ môi trường</Tag>
-      <Tag>Cộng đồng</Tag>
+      <Tag>Trải nghiệm</Tag>
       <Tag>Ngư dân biển</Tag>
     </Tags>
     <ConnectionGroup>Ngư dân biển đà nẵng</ConnectionGroup>
     <ReadTime>5 min read</ReadTime>
-    <Category>Cộng đồng</Category>
+    <Category>Trải nghiệm</Category>
+    <UiType>experience-landing</UiType>
     <Experience>
-      <DurationLabel>4-6 tiếng</DurationLabel>
+      <DurationLabel>60 – 90 phút</DurationLabel>
       <GroupSize>Nhóm nhỏ</GroupSize>
-      <PricePerPerson>530000</PricePerPerson>
-      <Rating>4.6</Rating>
-      <ReviewCount>60</ReviewCount>
+      <PricePerPerson>199000</PricePerPerson>
+      <Rating>4.8</Rating>
+      <ReviewCount>84</ReviewCount>
       <TimeRange>11:00 - 20:00</TimeRange>
       <DepartureSelectedIndex>0</DepartureSelectedIndex>
       <DepartureDates>
@@ -86,7 +92,7 @@
     </Tags>
     <ConnectionGroup>Lop hoc Cuoi Tuan</ConnectionGroup>
     <ReadTime>2 - 3 tiếng</ReadTime>
-    <Category>Giao duc</Category>
+    <Category>Trải nghiệm</Category>
     <Experience>
       <DurationLabel>2 - 3 tiếng</DurationLabel>
       <GroupSize>Nhóm vừa</GroupSize>

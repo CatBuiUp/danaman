@@ -1,13 +1,17 @@
+import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 
 import { ActionButtons, ImageGallery, StoryContent } from "@/components/story-detail";
+import { ExperienceLandingPage } from "@/components/story-detail/experience-landing";
+import { getExperienceLandingContent } from "@/lib/experience-landing-content";
 import { isXmlMockStoryInactive, loadActiveStoryRecords } from "@/lib/stories-xml";
 import {
   mapStoryToFeaturedExperience,
   resolveFeaturedListIndex,
   type StoryExperienceUi,
 } from "@/lib/story-experience-ui";
+import { isExperienceLandingStory } from "@/lib/story-ui-type";
 import type { Story } from "@/types";
 
 type PageProps = {
@@ -20,7 +24,6 @@ type StoryApiResponse = {
   data?: Story & { experience?: StoryExperienceUi };
 };
 
-/** Base URL for server-side fetch to this app's API (NEXTAUTH_URL is often unset on Vercel). */
 async function resolvePublicBaseUrl(): Promise<string> {
   const h = await headers();
   const host = h.get("x-forwarded-host") ?? h.get("host");
@@ -53,12 +56,35 @@ async function getStoryDetail(id: string): Promise<(Story & { experience?: Story
   return payload.data ?? null;
 }
 
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const story = await getStoryDetail(id);
+
+  if (!story) {
+    return { title: "Không tìm thấy | Danaman" };
+  }
+
+  return {
+    title: `${story.title} | Danaman`,
+    description: story.description,
+  };
+}
+
 export default async function StoryDetailPage({ params }: PageProps) {
   const { id } = await params;
   const story = await getStoryDetail(id);
 
   if (!story) {
     notFound();
+  }
+
+  if (isExperienceLandingStory(story)) {
+    const landingContent = getExperienceLandingContent(story.id);
+    if (!landingContent) {
+      notFound();
+    }
+
+    return <ExperienceLandingPage story={story} content={landingContent} />;
   }
 
   const gallery = story.gallery?.length ? story.gallery : [story.image];

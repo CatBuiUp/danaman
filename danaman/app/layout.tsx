@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Allura, Inter, Montserrat, Playfair_Display } from "next/font/google";
 import { ContactPopupProvider } from "@/components/layout/contact-popup-provider";
-import { SiteFooter, SiteHeader } from "@/components/layout";
+import { SiteChrome } from "@/components/layout/site-chrome";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -44,9 +44,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <ContactPopupProvider>
-          <SiteHeader />
-          <main className="w-full min-w-0 flex-1">{children}</main>
-          <SiteFooter />
+          <SiteChrome>{children}</SiteChrome>
         </ContactPopupProvider>
       </body>
     </html>

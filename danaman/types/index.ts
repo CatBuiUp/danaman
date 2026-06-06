@@ -3,6 +3,9 @@ export type ApiResponse<T> = {
   message: string;
 };
 
+/** Layout trang chi tiết — xem `lib/story-ui-type.ts` */
+export type StoryUiType = "default" | "experience-landing";
+
 export type Story = {
   id: string;
   image: string;
@@ -19,6 +22,7 @@ export type Story = {
   connectionGroup?: string;
   readTime: string;
   category: string;
+  uiType?: StoryUiType;
 };
 
 export type Experience = {

@@ -1,7 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
+import { LIKE_COOLDOWN_SECONDS, resolveLocationKey } from "@/lib/like-location";
 import { formatPriceVnd, type FeaturedExperienceCardData } from "@/lib/story-card-mappers";
+
+type LikeApiData = {
+  likeCount?: number;
+  canLike?: boolean;
+  cooldownActive?: boolean;
+  retryAfterSeconds?: number;
+};
 
 type FeaturedExperienceCardProps = {
   experience: FeaturedExperienceCardData;
@@ -30,6 +41,114 @@ function IconPeople() {
 }
 
 export function FeaturedExperienceCard({ experience }: FeaturedExperienceCardProps) {
+  const [likeCount, setLikeCount] = useState(0);
+  const [locationKey, setLocationKey] = useState<string | null>(null);
+  const [canLike, setCanLike] = useState(false);
+  const [retryAfterSeconds, setRetryAfterSeconds] = useState(0);
+  const [isLoadingLikes, setIsLoadingLikes] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    void (async () => {
+      const resolvedLocationKey = await resolveLocationKey();
+      if (cancelled) return;
+
+      if (!resolvedLocationKey) {
+        setLocationKey(null);
+        setCanLike(false);
+        setIsLoadingLikes(false);
+        return;
+      }
+
+      setLocationKey(resolvedLocationKey);
+
+      try {
+        const response = await fetch(
+          `/api/likes/${experience.id}?locationKey=${encodeURIComponent(resolvedLocationKey)}`,
+        );
+        const json = (await response.json()) as {
+          success?: boolean;
+          data?: LikeApiData;
+        };
+        if (!cancelled && json.success && json.data) {
+          setLikeCount(json.data.likeCount ?? 0);
+          setCanLike(json.data.canLike ?? true);
+          setRetryAfterSeconds(json.data.retryAfterSeconds ?? 0);
+        }
+      } catch {
+        // Giữ mặc định khi không tải được.
+      } finally {
+        if (!cancelled) setIsLoadingLikes(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [experience.id]);
+
+  useEffect(() => {
+    if (retryAfterSeconds <= 0) {
+      if (locationKey) {
+        setCanLike(true);
+      }
+      return;
+    }
+
+    setCanLike(false);
+    const timer = window.setInterval(() => {
+      setRetryAfterSeconds((current) => {
+        if (current <= 1) {
+          setCanLike(true);
+          return 0;
+        }
+        return current - 1;
+      });
+    }, 1000);
+
+    return () => window.clearInterval(timer);
+  }, [retryAfterSeconds, locationKey]);
+
+  async function handleHeartClick() {
+    if (isSaving || !canLike || !locationKey) return;
+
+    const optimisticCount = likeCount + 1;
+    setLikeCount(optimisticCount);
+    setCanLike(false);
+    setIsSaving(true);
+
+    try {
+      const response = await fetch(`/api/likes/${experience.id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ locationKey }),
+      });
+      const json = (await response.json()) as {
+        success?: boolean;
+        message?: string;
+        data?: LikeApiData;
+      };
+
+      if (json.success && json.data) {
+        setLikeCount(json.data.likeCount ?? optimisticCount);
+        setRetryAfterSeconds(LIKE_COOLDOWN_SECONDS);
+      } else {
+        setLikeCount(json.data?.likeCount ?? likeCount);
+        setRetryAfterSeconds(json.data?.retryAfterSeconds ?? 0);
+        setCanLike(!(json.data?.cooldownActive ?? false));
+      }
+    } catch {
+      setLikeCount((current) => Math.max(0, current - 1));
+      setCanLike(true);
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  const heartDisabled = isSaving || isLoadingLikes || !canLike || !locationKey;
+
   return (
     <article className="group relative min-h-[260px] overflow-hidden rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.06)] sm:min-h-[300px] lg:min-h-[320px]">
       <Image
@@ -41,19 +160,37 @@ export function FeaturedExperienceCard({ experience }: FeaturedExperienceCardPro
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#1F2717]/95 via-[#1F2717]/45 to-[#1F2717]/10" />
 
-      <button
-        type="button"
-        aria-label="Thêm vào yêu thích"
-        className="absolute top-4 right-4 z-20 flex h-9 w-9 items-center justify-center rounded-full border border-white/70 bg-black/15 text-white backdrop-blur-sm transition hover:bg-black/30"
-      >
-        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden>
-          <path
-            d="M12 20.5s-6.5-4.2-8.8-8.1C1.2 8.8 3.6 5 7.2 5c2 0 3.2 1.2 4.8 3.2C13.6 6.2 14.8 5 16.8 5c3.6 0 6 3.8 4 7.4C18.5 16.3 12 20.5 12 20.5z"
-            stroke="currentColor"
-            strokeWidth="1.5"
-          />
-        </svg>
-      </button>
+      <div className="absolute top-4 right-4 z-20 flex w-9 flex-col items-center gap-1">
+        <button
+          type="button"
+          aria-label={canLike ? "Thêm vào yêu thích" : "Chưa thể thả tim"}
+          aria-pressed={likeCount > 0}
+          onClick={() => void handleHeartClick()}
+          disabled={heartDisabled}
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/70 backdrop-blur-sm transition hover:bg-black/30 disabled:cursor-not-allowed disabled:opacity-60 ${
+            likeCount > 0 ? "bg-rose-500/80 text-white" : "bg-black/15 text-white"
+          }`}
+        >
+          <svg
+            className="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill={likeCount > 0 ? "currentColor" : "none"}
+            aria-hidden
+          >
+            <path
+              d="M12 20.5s-6.5-4.2-8.8-8.1C1.2 8.8 3.6 5 7.2 5c2 0 3.2 1.2 4.8 3.2C13.6 6.2 14.8 5 16.8 5c3.6 0 6 3.8 4 7.4C18.5 16.3 12 20.5 12 20.5z"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            />
+          </svg>
+        </button>
+        <span
+          aria-live="polite"
+          className="w-full text-center font-[family-name:var(--font-inter)] text-xs font-semibold text-white drop-shadow"
+        >
+          {likeCount}
+        </span>
+      </div>
 
       <div className="relative z-10 flex h-full min-h-[260px] flex-col p-4 text-white sm:min-h-[300px] lg:min-h-[320px]">
         <span className="inline-flex w-fit rounded-full bg-black/45 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">

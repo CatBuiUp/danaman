@@ -92,7 +92,7 @@ export function FeaturedExperienceCard({ experience }: FeaturedExperienceCardPro
               href={`/stories/${experience.id}`}
               className="shrink-0 rounded-2xl bg-[#D0AE7D] px-4 py-2.5 font-[family-name:var(--font-inter)] text-sm font-semibold text-[#1F2717] transition hover:bg-[#e0c090]"
             >
-              Đăng ký ngay
+              Xem thêm
             </Link>
           </div>
         </div>

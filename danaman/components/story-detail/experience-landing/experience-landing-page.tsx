@@ -13,6 +13,7 @@ import {
 } from "./experience-landing-cta";
 import { ExperienceLandingGallery } from "./experience-landing-gallery";
 import { ExperienceLandingHeader } from "./experience-landing-header";
+import { ExperienceLandingVideoPreview } from "./experience-landing-video-preview";
 
 type ExperienceLandingPageProps = {
   story: Story;
@@ -100,31 +101,11 @@ export function ExperienceLandingPage({ story, content }: ExperienceLandingPageP
               </div>
             </section>
 
-            <section>
-              <h2 className="flex items-center gap-2 font-[family-name:var(--font-montserrat)] text-sm font-semibold uppercase tracking-[0.22em] text-[#1F2717] sm:text-base">
-                <CameraIcon />
-                Xem trước trải nghiệm
-              </h2>
-              <div className="relative mt-4 overflow-hidden rounded-2xl">
-                <div className="relative aspect-video w-full bg-[#25301C]">
-                  <Image
-                    src={galleryImages[0] ?? story.image}
-                    alt="Video preview trải nghiệm"
-                    fill
-                    className="object-cover opacity-80"
-                    sizes="(max-width: 1024px) 100vw, 58vw"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/25">
-                    <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-[#1F2717] shadow-lg">
-                      <PlayIcon />
-                    </span>
-                  </div>
-                  <span className="absolute bottom-3 left-3 rounded-md bg-black/70 px-2 py-1 font-[family-name:var(--font-inter)] text-xs text-white">
-                    {content.videoDuration}
-                  </span>
-                </div>
-              </div>
-            </section>
+            <ExperienceLandingVideoPreview
+              images={galleryImages}
+              fallbackImage={story.image}
+              videoDuration={content.videoDuration}
+            />
 
             <section>
               <h2 className="font-[family-name:var(--font-montserrat)] text-sm font-semibold uppercase tracking-[0.22em] text-[#1F2717] sm:text-base">
@@ -368,24 +349,6 @@ function QuickInfoIcon({ icon }: { icon: ExperienceLandingContent["quickInfo"][n
       ) : (
         <path d="M8 7V5a4 4 0 1 1 8 0v2M6 7h12v12H6V7Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
       )}
-    </svg>
-  );
-}
-
-function CameraIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4 text-[#B08D57]" fill="none" aria-hidden>
-      <rect x="3" y="7" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M9 7l1.5-2h3L15 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="12" cy="13" r="2.5" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  );
-}
-
-function PlayIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6" fill="currentColor" aria-hidden>
-      <path d="M8 5v14l11-7z" />
     </svg>
   );
 }

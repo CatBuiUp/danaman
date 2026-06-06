@@ -13,6 +13,15 @@
   --danaman-script: #aab38a;
 }
 
+@keyframes experience-preview-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -23,6 +32,7 @@
   --color-danaman-subtext: var(--danaman-subtext);
   --color-danaman-script: var(--danaman-script);
   --font-sans: var(--font-inter);
+  --animate-experience-preview-zoom: experience-preview-zoom 3.5s ease-out forwards;
 }
 
 @media (prefers-color-scheme: dark) {

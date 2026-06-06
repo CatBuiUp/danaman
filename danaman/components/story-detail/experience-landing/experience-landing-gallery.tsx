@@ -23,12 +23,15 @@ export function ExperienceLandingGallery({ images }: ExperienceLandingGalleryPro
       </h2>
       <div className="mt-4 grid grid-cols-2 gap-2">
         {visibleImages.map((src, index) => (
-          <div key={`${src}-${index}`} className="relative aspect-square overflow-hidden rounded-xl bg-[#E8E3DA]">
+          <div
+            key={`${src}-${index}`}
+            className="group relative aspect-square overflow-hidden rounded-xl bg-[#E8E3DA]"
+          >
             <Image
               src={src}
               alt={`Ảnh trải nghiệm ${index + 1}`}
               fill
-              className="object-cover"
+              className="object-cover transition duration-500 group-hover:scale-105"
               sizes="(max-width: 1024px) 50vw, 25vw"
               loading={index < GALLERY_INITIAL_COUNT ? undefined : "lazy"}
             />

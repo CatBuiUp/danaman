@@ -11,6 +11,7 @@ import {
   ExperienceLandingMiniFooter,
   ExperienceLandingStickyBar,
 } from "./experience-landing-cta";
+import { ExperienceLandingGallery } from "./experience-landing-gallery";
 import { ExperienceLandingHeader } from "./experience-landing-header";
 
 type ExperienceLandingPageProps = {
@@ -32,7 +33,7 @@ export function ExperienceLandingPage({ story, content }: ExperienceLandingPageP
           {/* Left column */}
           <div className="space-y-8">
             <section className="relative overflow-hidden rounded-3xl">
-              <div className="relative flex min-h-[610px] flex-col sm:min-h-[750px]">
+              <div className="relative flex min-h-[610px] flex-col sm:min-h-[760px]">
                 <div className="absolute inset-0">
                   <div className="relative h-full w-full">
                     <Image
@@ -155,19 +156,27 @@ export function ExperienceLandingPage({ story, content }: ExperienceLandingPageP
                     className="flex gap-4 rounded-2xl border border-[#D0AE7D]/15 bg-white p-4 shadow-sm"
                   >
                     {step.image ? (
-                      <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl sm:h-20 sm:w-20">
-                        <Image src={step.image} alt={step.title} fill className="object-cover" sizes="80px" />
+                      <div className="relative shrink-0 pl-3 pt-3">
+                        <div className="relative h-16 w-[5.5rem] overflow-hidden rounded-2xl border border-white shadow-sm sm:h-20 sm:w-[6.5rem]">
+                          <Image src={step.image} alt={step.title} fill className="object-cover" sizes="104px" />
+                        </div>
+                        <span
+                          aria-label={`Bước ${step.step}`}
+                          className="absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-full bg-[#B08D57] font-[family-name:var(--font-montserrat)] text-base font-bold text-white shadow-md"
+                        >
+                          {step.step}
+                        </span>
                       </div>
                     ) : (
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1F2717] font-[family-name:var(--font-montserrat)] text-sm font-bold text-[#D0AE7D]">
+                      <span
+                        aria-label={`Bước ${step.step}`}
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#B08D57] font-[family-name:var(--font-montserrat)] text-sm font-bold text-white"
+                      >
                         {step.step}
                       </span>
                     )}
                     <div className="min-w-0 flex-1">
-                      <p className="font-[family-name:var(--font-montserrat)] text-[10px] font-semibold uppercase tracking-wider text-[#B08D57]">
-                        Bước {step.step}
-                      </p>
-                      <h3 className="mt-1 font-[family-name:var(--font-playfair)] text-lg font-medium text-[#1F2717]">
+                      <h3 className="font-[family-name:var(--font-playfair)] text-lg font-medium text-[#1F2717]">
                         {step.title}
                       </h3>
                       <p className="mt-1 font-[family-name:var(--font-inter)] text-sm leading-relaxed text-[#5F6557]">
@@ -182,24 +191,7 @@ export function ExperienceLandingPage({ story, content }: ExperienceLandingPageP
 
           {/* Right column */}
           <aside className="space-y-6">
-            <section className="rounded-3xl border border-[#D0AE7D]/15 bg-white p-5 shadow-sm">
-              <h2 className="text-center font-[family-name:var(--font-montserrat)] text-sm font-semibold uppercase tracking-[0.22em] text-[#1F2717] sm:text-base">
-                Hình ảnh thực tế
-              </h2>
-              <div className="mt-4 grid grid-cols-2 gap-2">
-                {galleryImages.map((src, index) => (
-                  <div key={`${src}-${index}`} className="relative aspect-square overflow-hidden rounded-xl bg-[#E8E3DA]">
-                    <Image src={src} alt={`Ảnh trải nghiệm ${index + 1}`} fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
-                  </div>
-                ))}
-              </div>
-              <button
-                type="button"
-                className="mt-4 w-full rounded-xl border border-[#D0AE7D]/30 py-2.5 font-[family-name:var(--font-inter)] text-sm font-medium text-[#1F2717] transition hover:bg-[#D0AE7D]/10"
-              >
-                Xem thêm ảnh
-              </button>
-            </section>
+            <ExperienceLandingGallery images={galleryImages} />
 
             <section className="rounded-3xl border border-[#D0AE7D]/15 bg-white p-5 shadow-sm">
               <h2 className="font-[family-name:var(--font-montserrat)] text-sm font-semibold uppercase tracking-[0.22em] text-[#1F2717] sm:text-base">

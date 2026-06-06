@@ -7,7 +7,7 @@
 -->
 <Stories>
   <Story id="mock-story-1" active="true">
-    <Image>/landing/chu-muoi-mam.png</Image>
+    <Image>/landing/landing-chu-muoi-mam.png</Image>
     <Gallery>
       <ImageUrl>/landing/chu-muoi-ngoi.png</ImageUrl>
       <ImageUrl>/landing/trai-nghiem/1.jpg</ImageUrl>

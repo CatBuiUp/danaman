@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Likes>
-  <Story id="mock-story-1" count="8"/>
+  <Story id="mock-story-1" count="10"/>
   <Story id="mock-story-2" count="4"/>
   <Story id="mock-story-4" count="5"/>
   <Story id="mock-story-3" count="3"/>
@@ -8,5 +8,7 @@
   <Cooldown storyId="mock-story-3" locationKey="15.9837,108.2304" lastClickedAt="2026-06-06T14:39:51.459Z"/>
   <Cooldown storyId="mock-story-4" locationKey="15.9837,108.2304" lastClickedAt="2026-06-06T14:44:33.322Z"/>
   <Cooldown storyId="mock-story-1" locationKey="15.9837,108.2304" lastClickedAt="2026-06-06T14:40:03.296Z"/>
+  <Cooldown storyId="mock-story-1" locationKey="15.9838,108.2304" lastClickedAt="2026-06-09T12:42:01.740Z"/>
+  <Cooldown storyId="mock-story-1" locationKey="15.9837,108.2303" lastClickedAt="2026-06-09T15:23:12.570Z"/>
 </Likes>
 

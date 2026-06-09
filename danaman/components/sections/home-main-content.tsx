@@ -2,40 +2,24 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-import {
-  DanangStoryCard,
-  FeaturedCommunityCtaCard,
-  FeaturedExperienceCard,
-} from "@/components/cards";
+import { FeaturedExperienceRowCard, FeaturedPartnershipCard } from "@/components/cards";
+import { DongHanhSection } from "@/components/sections/dong-hanh-section";
 import { ContentSection, SectionHeading } from "@/components/ui";
 import { fetchStories } from "@/lib/api/stories-client";
+import { resolveHomeFeaturedExperience } from "@/lib/home-featured-experience";
 import type { StoryMockRecord } from "@/lib/story-mock-record";
-import {
-  mapActiveRecordsToStories,
-  mapApiStoriesToCards,
-  mapStoryToFeaturedCard,
-} from "@/lib/story-card-mappers";
-import type { StoryExperienceUi } from "@/lib/story-experience-ui";
 import type { Story } from "@/types";
 
-const FEATURED_EXPERIENCE_LIMIT = 4;
-const DANANG_STORY_LIMIT = 4;
-
-type StoryWithOptionalExperience = Story & { experience?: StoryExperienceUi };
-
-function ExperienceCardSkeleton() {
+function ExperienceRowSkeleton() {
   return (
-    <article className="min-h-[260px] animate-pulse overflow-hidden rounded-[24px] bg-[#E8E3DA] sm:min-h-[300px] lg:min-h-[320px]" />
-  );
-}
-
-function StoryListCardSkeleton() {
-  return (
-    <article className="overflow-hidden rounded-[24px] bg-white shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
-      <div className="aspect-[4/3] animate-pulse bg-[#E8E3DA]" />
-      <div className="space-y-2 p-5">
-        <div className="h-5 w-4/5 animate-pulse rounded bg-[#E8E3DA]" />
-        <div className="h-5 w-3/5 animate-pulse rounded bg-[#E8E3DA]" />
+    <article className="overflow-hidden rounded-[24px] border border-black/5 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
+      <div className="flex flex-col sm:flex-row">
+        <div className="min-h-[220px] w-full animate-pulse bg-[#E8E3DA] sm:min-h-[280px] sm:w-[42%]" />
+        <div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">
+          <div className="h-7 w-2/3 animate-pulse rounded bg-[#E8E3DA]" />
+          <div className="h-4 w-full animate-pulse rounded bg-[#E8E3DA]" />
+          <div className="h-4 w-4/5 animate-pulse rounded bg-[#E8E3DA]" />
+        </div>
       </div>
     </article>
   );
@@ -67,28 +51,7 @@ export function HomeMainContent({ fallbackStoryRecords }: HomeMainContentProps) 
     void loadStories();
   }, [loadStories]);
 
-  const activeFallback = mapActiveRecordsToStories(
-    fallbackStoryRecords.filter((record) => record.active),
-  );
-
-  const resolvedStories: Story[] =
-    stories.length > 0
-      ? stories
-      : activeFallback.map((entry) => entry.story);
-
-  const featuredExperiences =
-    stories.length > 0
-      ? mapApiStoriesToCards(stories).slice(0, FEATURED_EXPERIENCE_LIMIT)
-      : activeFallback
-          .slice(0, FEATURED_EXPERIENCE_LIMIT)
-          .map((entry, index) =>
-            mapStoryToFeaturedCard(entry.story, index, entry.experience),
-          );
-
-  const danangStories = resolvedStories.slice(0, DANANG_STORY_LIMIT);
-
-  const featuredColumnClass =
-    featuredExperiences.length >= 4 ? "lg:grid-cols-5" : "lg:grid-cols-4";
+  const featuredExperience = resolveHomeFeaturedExperience(stories, fallbackStoryRecords);
 
   return (
     <div className="bg-[#F7F4EE]">
@@ -113,34 +76,24 @@ export function HomeMainContent({ fallbackStoryRecords }: HomeMainContentProps) 
           </div>
         ) : null}
 
-        <div className={`grid grid-cols-1 gap-6 ${featuredColumnClass}`}>
-          {isLoading
-            ? Array.from({ length: 3 }).map((_, index) => (
-                <ExperienceCardSkeleton key={index} />
-              ))
-            : [
-                ...featuredExperiences.map((experience) => (
-                  <FeaturedExperienceCard key={experience.id} experience={experience} />
-                )),
-                <FeaturedCommunityCtaCard key="featured-community-cta" />,
-              ]}
+        <div className="flex flex-col gap-6">
+          {isLoading ? (
+            <>
+              <ExperienceRowSkeleton />
+              <ExperienceRowSkeleton />
+            </>
+          ) : (
+            <>
+              {featuredExperience ? (
+                <FeaturedExperienceRowCard experience={featuredExperience} />
+              ) : null}
+              <FeaturedPartnershipCard />
+            </>
+          )}
         </div>
       </ContentSection>
 
-      <ContentSection id="stories" className="pt-5 pb-6">
-        <SectionHeading
-          title="Câu chuyện Đà Nẵng"
-          viewAllHref="#stories"
-          viewAllLabel="Xem tất cả câu chuyện →"
-          className="!mb-4 sm:!mb-5"
-        />
-
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {isLoading
-            ? Array.from({ length: 4 }).map((_, index) => <StoryListCardSkeleton key={index} />)
-            : danangStories.map((story) => <DanangStoryCard key={story.id} story={story} />)}
-        </div>
-      </ContentSection>
+      <DongHanhSection />
     </div>
   );
 }

@@ -1,3 +1,10 @@
+/**
+ * @archive REUSABLE — overlay grid featured experience card v1 (pre-2026-06 home redesign)
+ *
+ * Layout: full-bleed image + gradient overlay, vertical card in multi-column grid.
+ * Restore: import FeaturedExperienceCardOverlayGridV1 in home-main-content and render
+ * in lg:grid-cols-4/5 grid alongside FeaturedCommunityCtaCard.
+ */
 "use client";
 
 import Image from "next/image";
@@ -14,7 +21,7 @@ type LikeApiData = {
   retryAfterSeconds?: number;
 };
 
-type FeaturedExperienceCardProps = {
+type FeaturedExperienceCardOverlayGridV1Props = {
   experience: FeaturedExperienceCardData;
 };
 
@@ -40,7 +47,7 @@ function IconPeople() {
   );
 }
 
-export function FeaturedExperienceCard({ experience }: FeaturedExperienceCardProps) {
+export function FeaturedExperienceCardOverlayGridV1({ experience }: FeaturedExperienceCardOverlayGridV1Props) {
   const [likeCount, setLikeCount] = useState(0);
   const [locationKey, setLocationKey] = useState<string | null>(null);
   const [canLike, setCanLike] = useState(false);

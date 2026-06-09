@@ -3,8 +3,6 @@
 import { DongHanhActionCard, DongHanhMembersCard, dongHanhActionIcons } from "@/components/cards";
 import { useContactPopup } from "@/components/layout/contact-popup-provider";
 import { ContentSection, SectionHeading } from "@/components/ui";
-import { joinDanamanHref } from "@/lib/site-nav";
-
 export function DongHanhSection() {
   const { openContactPopup } = useContactPopup();
 
@@ -19,8 +17,7 @@ export function DongHanhSection() {
           title="Trở thành đối tác"
           description="Cùng Danaman xây dựng những trải nghiệm chân thật và bền vững."
           ctaLabel="Tìm hiểu thêm →"
-          ctaHref={joinDanamanHref}
-          ctaExternal
+          ctaHref="/de-xuat-y-tuong"
         />
 
         <DongHanhActionCard

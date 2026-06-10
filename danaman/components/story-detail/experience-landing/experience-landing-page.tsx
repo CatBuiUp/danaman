@@ -138,8 +138,8 @@ export function ExperienceLandingPage({ story, content }: ExperienceLandingPageP
                   >
                     {step.image ? (
                       <div className="relative shrink-0 pl-3 pt-3">
-                        <div className="relative h-16 w-[5.5rem] overflow-hidden rounded-2xl border border-white shadow-sm sm:h-20 sm:w-[6.5rem]">
-                          <Image src={step.image} alt={step.title} fill className="object-cover" sizes="104px" />
+                        <div className="relative h-20 w-[8.75rem] overflow-hidden rounded-2xl border border-white shadow-sm sm:h-24 sm:w-40">
+                          <Image src={step.image} alt={step.title} fill className="object-cover" sizes="160px" />
                         </div>
                         <span
                           aria-label={`Bước ${step.step}`}

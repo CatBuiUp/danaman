@@ -30,6 +30,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Danaman",
   description: "Scalable Next.js App Router starter structure",
+  icons: {
+    icon: "/danaman_logo.png",
+    apple: "/danaman_logo.png",
+  },
 };
 
 export default function RootLayout({

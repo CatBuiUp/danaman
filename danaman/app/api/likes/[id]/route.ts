@@ -25,7 +25,7 @@ export async function GET(request: Request, context: RouteContext) {
   }
 
   try {
-    const status = getLikeStatus(id, locationKey);
+    const status = await getLikeStatus(id, locationKey);
     return ok(status, "Like status fetched successfully");
   } catch (error) {
     return fail("Failed to load like status", 500, error);
@@ -52,7 +52,7 @@ export async function POST(request: Request, context: RouteContext) {
   }
 
   try {
-    const result = incrementLikeWithCooldown(id, locationKey);
+    const result = await incrementLikeWithCooldown(id, locationKey);
 
     if (!result.success) {
       return NextResponse.json(

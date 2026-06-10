@@ -51,6 +51,11 @@ export type IncrementLikeResult =
     };
 
 const LIKES_XML_PATH = path.join(process.cwd(), "data", "likes.xml");
+const LIKES_KV_KEY = "danaman:likes-store";
+
+function useKvStorage(): boolean {
+  return Boolean(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+}
 
 function ensureArray<T>(value: T | T[] | undefined): T[] {
   if (value === undefined || value === null) return [];
@@ -83,7 +88,7 @@ function parseLikeStore(doc: {
   };
 }
 
-function readLikeStore(): LikeStore {
+function readLikeStoreFromXmlFile(): LikeStore {
   if (!fs.existsSync(LIKES_XML_PATH)) {
     return { stories: [], cooldowns: [] };
   }
@@ -103,7 +108,7 @@ function readLikeStore(): LikeStore {
   return parseLikeStore(doc);
 }
 
-function writeLikeStore(store: LikeStore): void {
+function writeLikeStoreToXmlFile(store: LikeStore): void {
   const builder = new XMLBuilder({
     ignoreAttributes: false,
     attributeNamePrefix: "@_",
@@ -131,6 +136,40 @@ function writeLikeStore(store: LikeStore): void {
   fs.writeFileSync(LIKES_XML_PATH, xml, "utf-8");
 }
 
+async function readLikeStoreFromKv(): Promise<LikeStore> {
+  const { kv } = await import("@vercel/kv");
+  const cached = await kv.get<LikeStore>(LIKES_KV_KEY);
+  if (cached) return cached;
+
+  if (fs.existsSync(LIKES_XML_PATH)) {
+    const seeded = readLikeStoreFromXmlFile();
+    await kv.set(LIKES_KV_KEY, seeded);
+    return seeded;
+  }
+
+  return { stories: [], cooldowns: [] };
+}
+
+async function writeLikeStoreToKv(store: LikeStore): Promise<void> {
+  const { kv } = await import("@vercel/kv");
+  await kv.set(LIKES_KV_KEY, store);
+}
+
+async function readLikeStore(): Promise<LikeStore> {
+  if (useKvStorage()) {
+    return readLikeStoreFromKv();
+  }
+  return readLikeStoreFromXmlFile();
+}
+
+async function writeLikeStore(store: LikeStore): Promise<void> {
+  if (useKvStorage()) {
+    await writeLikeStoreToKv(store);
+    return;
+  }
+  writeLikeStoreToXmlFile(store);
+}
+
 function getRetryAfterSeconds(lastClickedAt: string, now: Date): number {
   const lastMs = new Date(lastClickedAt).getTime();
   if (Number.isNaN(lastMs)) return 0;
@@ -150,12 +189,13 @@ function getStoryCount(store: LikeStore, storyId: string): number {
   return store.stories.find((entry) => entry.id === storyId)?.count ?? 0;
 }
 
-export function getLikeCount(storyId: string): number {
-  return getStoryCount(readLikeStore(), storyId);
+export async function getLikeCount(storyId: string): Promise<number> {
+  const store = await readLikeStore();
+  return getStoryCount(store, storyId);
 }
 
-export function getLikeStatus(storyId: string, locationKey: string, now = new Date()): LikeStatus {
-  const store = readLikeStore();
+export async function getLikeStatus(storyId: string, locationKey: string, now = new Date()): Promise<LikeStatus> {
+  const store = await readLikeStore();
   const likeCount = getStoryCount(store, storyId);
   const cooldown = findCooldown(store, storyId, locationKey);
   const retryAfterSeconds = cooldown ? getRetryAfterSeconds(cooldown.lastClickedAt, now) : 0;
@@ -171,27 +211,27 @@ export function getLikeStatus(storyId: string, locationKey: string, now = new Da
   };
 }
 
-export function incrementLikeCount(storyId: string): number {
-  const store = readLikeStore();
+export async function incrementLikeCount(storyId: string): Promise<number> {
+  const store = await readLikeStore();
   const existing = store.stories.find((entry) => entry.id === storyId);
 
   if (existing) {
     existing.count += 1;
-    writeLikeStore(store);
+    await writeLikeStore(store);
     return existing.count;
   }
 
   store.stories.push({ id: storyId, count: 1 });
-  writeLikeStore(store);
+  await writeLikeStore(store);
   return 1;
 }
 
-export function incrementLikeWithCooldown(
+export async function incrementLikeWithCooldown(
   storyId: string,
   locationKey: string,
   now = new Date(),
-): IncrementLikeResult {
-  const store = readLikeStore();
+): Promise<IncrementLikeResult> {
+  const store = await readLikeStore();
   const likeCount = getStoryCount(store, storyId);
   const cooldown = findCooldown(store, storyId, locationKey);
   const retryAfterSeconds = cooldown ? getRetryAfterSeconds(cooldown.lastClickedAt, now) : 0;
@@ -227,7 +267,7 @@ export function incrementLikeWithCooldown(
     });
   }
 
-  writeLikeStore(store);
+  await writeLikeStore(store);
 
   return {
     success: true,

@@ -131,7 +131,7 @@ export function PartnershipProposalPage() {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-8 xl:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
           <section className="space-y-4">
             <h2 className="font-[family-name:var(--font-playfair)] text-xl font-bold text-[#1F2717]">
               Chúng tôi đang tìm kiếm

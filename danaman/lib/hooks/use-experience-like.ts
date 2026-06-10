@@ -2,19 +2,37 @@
 
 import { useEffect, useState } from "react";
 
-import { LIKE_COOLDOWN_SECONDS, resolveLocationKey } from "@/lib/like-location";
+import { LIKE_COOLDOWN_SECONDS } from "@/lib/like-location";
 
 type LikeApiData = {
   likeCount?: number;
-  canLike?: boolean;
-  cooldownActive?: boolean;
-  retryAfterSeconds?: number;
 };
+
+function cooldownStorageKey(storyId: string): string {
+  return `danaman-like-cooldown:${storyId}`;
+}
+
+function getCooldownRetrySeconds(storyId: string): number {
+  if (typeof window === "undefined") return 0;
+
+  const raw = window.localStorage.getItem(cooldownStorageKey(storyId));
+  if (!raw) return 0;
+
+  const lastMs = new Date(raw).getTime();
+  if (Number.isNaN(lastMs)) return 0;
+
+  const elapsedSeconds = Math.floor((Date.now() - lastMs) / 1000);
+  const remaining = LIKE_COOLDOWN_SECONDS - elapsedSeconds;
+  return remaining > 0 ? remaining : 0;
+}
+
+function setCooldown(storyId: string): void {
+  window.localStorage.setItem(cooldownStorageKey(storyId), new Date().toISOString());
+}
 
 export function useExperienceLike(storyId: string) {
   const [likeCount, setLikeCount] = useState(0);
-  const [locationKey, setLocationKey] = useState<string | null>(null);
-  const [canLike, setCanLike] = useState(false);
+  const [canLike, setCanLike] = useState(true);
   const [retryAfterSeconds, setRetryAfterSeconds] = useState(0);
   const [isLoadingLikes, setIsLoadingLikes] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -23,30 +41,20 @@ export function useExperienceLike(storyId: string) {
     let cancelled = false;
 
     void (async () => {
-      const resolvedLocationKey = await resolveLocationKey();
-      if (cancelled) return;
-
-      if (!resolvedLocationKey) {
-        setLocationKey(null);
-        setCanLike(false);
-        setIsLoadingLikes(false);
-        return;
+      const initialCooldown = getCooldownRetrySeconds(storyId);
+      if (!cancelled) {
+        setRetryAfterSeconds(initialCooldown);
+        setCanLike(initialCooldown <= 0);
       }
 
-      setLocationKey(resolvedLocationKey);
-
       try {
-        const response = await fetch(
-          `/api/likes/${storyId}?locationKey=${encodeURIComponent(resolvedLocationKey)}`,
-        );
+        const response = await fetch(`/api/likes/${storyId}`);
         const json = (await response.json()) as {
           success?: boolean;
           data?: LikeApiData;
         };
         if (!cancelled && json.success && json.data) {
           setLikeCount(json.data.likeCount ?? 0);
-          setCanLike(json.data.canLike ?? true);
-          setRetryAfterSeconds(json.data.retryAfterSeconds ?? 0);
         }
       } catch {
         // Giữ mặc định khi không tải được.
@@ -62,9 +70,7 @@ export function useExperienceLike(storyId: string) {
 
   useEffect(() => {
     if (retryAfterSeconds <= 0) {
-      if (locationKey) {
-        setCanLike(true);
-      }
+      setCanLike(true);
       return;
     }
 
@@ -80,10 +86,10 @@ export function useExperienceLike(storyId: string) {
     }, 1000);
 
     return () => window.clearInterval(timer);
-  }, [retryAfterSeconds, locationKey]);
+  }, [retryAfterSeconds]);
 
   async function handleHeartClick() {
-    if (isSaving || !canLike || !locationKey) return;
+    if (isSaving || !canLike) return;
 
     const optimisticCount = likeCount + 1;
     setLikeCount(optimisticCount);
@@ -91,11 +97,7 @@ export function useExperienceLike(storyId: string) {
     setIsSaving(true);
 
     try {
-      const response = await fetch(`/api/likes/${storyId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ locationKey }),
-      });
+      const response = await fetch(`/api/likes/${storyId}`, { method: "POST" });
       const json = (await response.json()) as {
         success?: boolean;
         data?: LikeApiData;
@@ -103,21 +105,21 @@ export function useExperienceLike(storyId: string) {
 
       if (json.success && json.data) {
         setLikeCount(json.data.likeCount ?? optimisticCount);
+        setCooldown(storyId);
         setRetryAfterSeconds(LIKE_COOLDOWN_SECONDS);
       } else {
-        setLikeCount(json.data?.likeCount ?? likeCount);
-        setRetryAfterSeconds(json.data?.retryAfterSeconds ?? 0);
-        setCanLike(!(json.data?.cooldownActive ?? false));
+        setLikeCount((current) => Math.max(0, current - 1));
+        setCanLike(getCooldownRetrySeconds(storyId) <= 0);
       }
     } catch {
       setLikeCount((current) => Math.max(0, current - 1));
-      setCanLike(true);
+      setCanLike(getCooldownRetrySeconds(storyId) <= 0);
     } finally {
       setIsSaving(false);
     }
   }
 
-  const heartDisabled = isSaving || isLoadingLikes || !canLike || !locationKey;
+  const heartDisabled = isSaving || isLoadingLikes || !canLike;
 
   return {
     likeCount,

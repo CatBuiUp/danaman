@@ -190,9 +190,8 @@ export function PartnershipProposalPage() {
             <h2 className="font-[family-name:var(--font-playfair)] text-2xl font-bold text-[#1F2717] sm:text-3xl">
               Hoặc kết nối với Danaman ngay
             </h2>
-            <p className="mx-auto mt-2 max-w-2xl font-[family-name:var(--font-inter)] text-sm leading-relaxed text-[#5F6557] sm:text-base">
-              Bạn muốn trò chuyện nhanh hơn? Hãy liên hệ trực tiếp với chúng tôi qua các kênh bên
-              dưới nhé!
+            <p className="mx-auto mt-2 max-w-3xl font-[family-name:var(--font-inter)] text-sm leading-relaxed text-[#5F6557] sm:text-base">
+              Bạn muốn trò chuyện nhanh hơn? Hãy liên hệ trực tiếp với chúng tôi qua các kênh bên dưới nhé!
             </p>
           </div>
 

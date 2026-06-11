@@ -21,14 +21,14 @@ export const partnershipHeroItems = [
 ] as const;
 
 export const partnershipLookingForItems = [
-  { title: "Nghệ nhân", description: "Người giữ nghề truyền thống" },
-  { title: "Người dân địa phương", description: "Người sống, làm việc tại địa phương" },
-  { title: "Chủ homestay", description: "Homestay owners" },
-  { title: "Hướng dẫn viên", description: "Guide bản địa" },
-  { title: "Quán ăn gia đình", description: "Ẩm thực địa phương" },
-  { title: "Làng nghề", description: "Nghề thủ công, sản xuất truyền thống" },
-  { title: "Người sáng tạo nội dung", description: "Content creator" },
-  { title: "Đối tác địa phương khác", description: "And other local partners" },
+  { title: "Nghệ nhân", description: "Người giữ nghề truyền thống", icon: "artisan" },
+  { title: "Người dân địa phương", description: "Có câu chuyện đặc biệt", icon: "lightbulb" },
+  { title: "Chủ homestay", description: "Muốn mang đến trải nghiệm địa phương", icon: "homestay" },
+  { title: "Hướng dẫn viên", description: "Am hiểu và yêu quê hương", icon: "guide" },
+  { title: "Chủ quán ăn gia đình", description: "Món ngon và câu chuyện riêng", icon: "utensils" },
+  { title: "Làng nghề, hợp tác xã", description: "Sản phẩm và quy trình đặc sắc", icon: "handshake" },
+  { title: "Nhà sáng tạo nội dung", description: "Kể chuyện, quay phim, chụp ảnh", icon: "camera" },
+  { title: "Và nhiều đối tác khác", description: "Cùng chung tình yêu với Đà Nẵng", icon: "users" },
 ] as const;
 
 export const partnershipBenefits = [

@@ -11,11 +11,151 @@ import {
 } from "@/lib/partnership-proposal-content";
 import { siteContentContainerClass } from "@/lib/site-layout";
 
-function LookingForIcon() {
+function LookingForItemIcon({
+  icon,
+}: {
+  icon: (typeof partnershipLookingForItems)[number]["icon"];
+}) {
+  const className = "h-4 w-4 text-[#5F6557]";
+
+  if (icon === "artisan") {
+    return (
+      <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <circle cx="12" cy="8" r="3" stroke="currentColor" strokeWidth="1.5" />
+        <path
+          d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M16 4l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
+  if (icon === "lightbulb") {
+    return (
+      <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path
+          d="M9 18h6M10 22h4M8.5 14a5.5 5.5 0 1 1 7.8-7.8A5.5 5.5 0 0 1 8.5 14Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
+  if (icon === "homestay") {
+    return (
+      <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path
+          d="M3 10.5 12 4l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+        <circle cx="12" cy="13" r="1.5" fill="currentColor" />
+      </svg>
+    );
+  }
+
+  if (icon === "guide") {
+    return (
+      <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path
+          d="M8 20v-1.5a4 4 0 0 1 8 0V20"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <circle cx="12" cy="9" r="3" stroke="currentColor" strokeWidth="1.5" />
+        <path
+          d="M9 7.5h6l-.5-2.5H9.5L9 7.5Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
+  if (icon === "utensils") {
+    return (
+      <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path
+          d="M6 3v8a2 2 0 0 0 4 0V3M8 3v18"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M16 3v7c0 2.2 1.5 4 3 4v8"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
+  if (icon === "handshake") {
+    return (
+      <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path
+          d="M7 11V8a2 2 0 0 1 2-2h1M17 11V8a2 2 0 0 0-2-2h-1M7 11l-2 2v3a2 2 0 0 0 2 2h1l3-3M17 11l2 2v3a2 2 0 0 1-2 2h-1l-3-3M10 14l2 2 2-2"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
+  if (icon === "camera") {
+    return (
+      <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+        <path
+          d="M4 8h3l2-2h6l2 2h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
+        <circle cx="12" cy="13" r="3" stroke="currentColor" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
   return (
-    <svg className="h-5 w-5 text-[#5F6557]" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M8 12h8M12 8v8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="9" cy="8" r="3" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M2 20c0-3.3 2.7-6 6-6 1.2 0 2.3.4 3.2 1"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M15 11a4 4 0 0 1 4 4"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M18 20c0-2.8 2.2-5 5-5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
@@ -140,17 +280,19 @@ export function PartnershipProposalPage() {
               {partnershipLookingForItems.map((item) => (
                 <article
                   key={item.title}
-                  className="rounded-2xl border border-black/5 bg-white p-4 shadow-sm"
+                  className="flex gap-3 rounded-2xl border border-black/5 bg-white p-4 shadow-sm"
                 >
-                  <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-[#F0EBE2]">
-                    <LookingForIcon />
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F0EBE2]">
+                    <LookingForItemIcon icon={item.icon} />
+                  </span>
+                  <div>
+                    <h3 className="font-[family-name:var(--font-inter)] text-sm font-semibold text-[#1F2717]">
+                      {item.title}
+                    </h3>
+                    <p className="mt-1 font-[family-name:var(--font-inter)] text-xs leading-relaxed text-[#5F6557]">
+                      {item.description}
+                    </p>
                   </div>
-                  <h3 className="font-[family-name:var(--font-inter)] text-sm font-semibold text-[#1F2717]">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1 font-[family-name:var(--font-inter)] text-xs leading-relaxed text-[#5F6557]">
-                    {item.description}
-                  </p>
                 </article>
               ))}
             </div>

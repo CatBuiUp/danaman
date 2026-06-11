@@ -108,7 +108,7 @@ export function PartnershipProposalForm() {
 
   return (
     <div className="rounded-[24px] border border-black/5 bg-white p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
-      <h2 className="font-[family-name:var(--font-playfair)] text-xl font-bold text-[#1F2717] sm:text-2xl">
+      <h2 className="font-[family-name:var(--font-playfair)] text-xl font-bold text-[#1F2717]">
         Giới thiệu câu chuyện của bạn
       </h2>
       <p className="mt-2 font-[family-name:var(--font-inter)] text-sm leading-relaxed text-[#5F6557]">

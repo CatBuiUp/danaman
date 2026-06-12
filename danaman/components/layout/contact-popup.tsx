@@ -286,6 +286,14 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
               >
                 Chat với Danaman qua Zalo
               </Link>
+              <Link
+                href={footerSocialLinks.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center rounded-xl bg-[#25D366] px-4 py-3 font-[family-name:var(--font-montserrat)] text-sm font-semibold text-white transition hover:brightness-110"
+              >
+                WhatsApp
+              </Link>
             </div>
 
             <div className="mt-5 flex items-center gap-3">
@@ -417,7 +425,7 @@ export function ContactPopup({ isOpen, onClose }: ContactPopupProps) {
                 </div>
               ))}
               <div className="space-y-4 pt-2">
-                <div className="relative h-24 w-full overflow-hidden rounded-lg sm:h-28">
+                <div className="relative h-[146px] w-full overflow-hidden rounded-lg sm:h-[162px]">
                   <Image
                     src="/cau-chuyen-moi-nguoi.png"
                     alt="Mỗi con người là một câu chuyện"

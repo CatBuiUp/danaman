@@ -18,6 +18,7 @@ export type FeaturedExperienceRowCardData = {
   groupSize: string;
   location: string;
   pricePerPerson: number;
+  hidePrice?: boolean;
   rating: number;
   reviewCount: number;
 };
@@ -27,9 +28,10 @@ const HOME_DISPLAY_OVERRIDES: Partial<FeaturedExperienceRowCardData> = {
   title: "Giữ Mùi Biển",
   description:
     "Trải nghiệm làm nước mắm truyền thống cùng Người Giữ Hồn Biển tại làng biển Tân Thái.",
-  duration: "3 – 4 tiếng",
+  duration: "90 – 120 phút",
   location: "Tân Thái, Đà Nẵng",
   pricePerPerson: 480_000,
+  hidePrice: true,
 };
 
 type StoryWithOptionalExperience = Story & { experience?: StoryExperienceUi };
@@ -52,6 +54,7 @@ export function mapStoryToFeaturedRowCard(
     groupSize: base.groupSize,
     location: overrides.location ?? story.location,
     pricePerPerson: overrides.pricePerPerson ?? base.pricePerPerson,
+    hidePrice: overrides.hidePrice,
     rating: base.rating,
     reviewCount: base.reviewCount,
   };

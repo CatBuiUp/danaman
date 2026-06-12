@@ -129,11 +129,15 @@ export function FeaturedExperienceRowCard({ experience }: FeaturedExperienceRowC
             </p>
           </div>
 
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <p className="font-[family-name:var(--font-inter)] text-lg font-semibold text-[#1F2717]">
-              {formatPriceVnd(experience.pricePerPerson)}
-              <span className="ml-1 text-sm font-normal text-[#5F6557]">/ người</span>
-            </p>
+          <div
+            className={`flex flex-wrap items-end gap-4 ${experience.hidePrice ? "justify-end" : "justify-between"}`}
+          >
+            {!experience.hidePrice ? (
+              <p className="font-[family-name:var(--font-inter)] text-lg font-semibold text-[#1F2717]">
+                {formatPriceVnd(experience.pricePerPerson)}
+                <span className="ml-1 text-sm font-normal text-[#5F6557]">/ người</span>
+              </p>
+            ) : null}
             <Link
               href={`/stories/${experience.id}`}
               className="shrink-0 rounded-2xl bg-[#D0AE7D] px-5 py-2.5 font-[family-name:var(--font-inter)] text-base font-semibold text-[#1F2717] transition hover:bg-[#e0c090]"

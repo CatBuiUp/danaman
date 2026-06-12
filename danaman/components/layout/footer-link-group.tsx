@@ -6,7 +6,7 @@ import { useContactPopup } from "@/components/layout/contact-popup-provider";
 import type { FooterLink } from "@/lib/footer-nav";
 
 const linkClassName =
-  "font-[family-name:var(--font-inter)] text-sm leading-[1.6] text-[#D7C9B2] transition hover:text-[#EEDBC0]";
+  "cursor-pointer font-[family-name:var(--font-inter)] text-sm leading-[1.6] text-[#D7C9B2] transition hover:text-[#EEDBC0]";
 
 type FooterLinkGroupProps = {
   title: string;
@@ -14,7 +14,7 @@ type FooterLinkGroupProps = {
 };
 
 export function FooterLinkGroup({ title, links }: FooterLinkGroupProps) {
-  const { openContactPopup } = useContactPopup();
+  const { openContactPopup, openAboutDanamanPopup } = useContactPopup();
 
   return (
     <div>
@@ -22,10 +22,14 @@ export function FooterLinkGroup({ title, links }: FooterLinkGroupProps) {
         {title}
       </p>
       <ul className="mt-4 space-y-2.5">
-        {links.map(({ label, href, external, opensContactPopup }) => (
+        {links.map(({ label, href, external, opensContactPopup, opensAboutPopup }) => (
           <li key={label}>
             {opensContactPopup ? (
               <button type="button" onClick={openContactPopup} className={`${linkClassName} text-left`}>
+                {label}
+              </button>
+            ) : opensAboutPopup ? (
+              <button type="button" onClick={openAboutDanamanPopup} className={`${linkClassName} text-left`}>
                 {label}
               </button>
             ) : (

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import type { ExperienceLandingContent } from "@/lib/experience-landing-content";
-import { footerSocialLinks } from "@/lib/footer-social-links";
+import { experienceLandingContactLinks } from "@/lib/experience-landing-contact-links";
 import { formatPriceVnd } from "@/lib/story-card-mappers";
 import type { Story } from "@/types";
 
@@ -22,8 +22,9 @@ type ExperienceLandingPageProps = {
 
 export function ExperienceLandingPage({ story, content }: ExperienceLandingPageProps) {
   const galleryImages = content.galleryImages;
-  const zaloHref = footerSocialLinks.zalo;
-  const messengerHref = footerSocialLinks.facebook;
+  const zaloHref = experienceLandingContactLinks.zalo;
+  const messengerHref = experienceLandingContactLinks.messenger;
+  const whatsappHref = experienceLandingContactLinks.whatsapp;
 
   return (
     <div className="min-h-screen bg-[#F9F7F2] pb-28 lg:pb-10">
@@ -94,7 +95,11 @@ export function ExperienceLandingPage({ story, content }: ExperienceLandingPageP
                       {content.priceNote}
                     </p>
                     <div className="mt-5">
-                      <ExperienceLandingCtaButtons zaloHref={zaloHref} messengerHref={messengerHref} />
+                      <ExperienceLandingCtaButtons
+                        zaloHref={zaloHref}
+                        messengerHref={messengerHref}
+                        whatsappHref={whatsappHref}
+                      />
                     </div>
                   </div>
                 </div>
@@ -234,7 +239,11 @@ export function ExperienceLandingPage({ story, content }: ExperienceLandingPageP
                 Đặt trải nghiệm ngay hôm nay!
               </p>
               <div className="mt-5">
-                <ExperienceLandingCtaButtons zaloHref={zaloHref} messengerHref={messengerHref} />
+                <ExperienceLandingCtaButtons
+                  zaloHref={zaloHref}
+                  messengerHref={messengerHref}
+                  whatsappHref={whatsappHref}
+                />
               </div>
               <p className="mt-4 font-[family-name:var(--font-inter)] text-xs text-[#8A907E]">{content.supportNote}</p>
               <a
@@ -250,7 +259,12 @@ export function ExperienceLandingPage({ story, content }: ExperienceLandingPageP
         </div>
       </div>
 
-      <ExperienceLandingStickyBar priceFrom={content.priceFrom} zaloHref={zaloHref} messengerHref={messengerHref} />
+      <ExperienceLandingStickyBar
+        priceFrom={content.priceFrom}
+        zaloHref={zaloHref}
+        messengerHref={messengerHref}
+        whatsappHref={whatsappHref}
+      />
     </div>
   );
 }
